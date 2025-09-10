@@ -92,7 +92,7 @@ public class TreeSet {
             }
             else {
                 iter = iter.left;
-                //hvis iter er root
+                //hvis iter er root, hele treet må flyttes og den høyre under root blir ny root
                 if (iter.parent == null) {
                     
                 }
