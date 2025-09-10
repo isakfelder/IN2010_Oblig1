@@ -76,7 +76,7 @@ public class TreeSet {
             if (iter.data < value) {
                 iter = iter.right;
                 if(value == iter.data) {
-                    if (iter.left == null || iter.right == null) {
+                    if (iter.left == null || iter.right == null) { //dette stemmer nok ikke heller, fordi den ene kan være null uten at den andre er det, må gjøre fler sjekker
                         previous.right = null;
                         iter.parent = null;
                         counter--;
@@ -93,14 +93,18 @@ public class TreeSet {
             else {
                 iter = iter.left;
                 //hvis iter er root, hele treet må flyttes og den høyre under root blir ny root
-                if (iter.parent == null) {
+                if (iter.parent == null && iter.data == value) {
                     
                 }
 
                 //hvis iter er i midten
-                
+                if (iter.data == value) {
+
+                }
                 
                 //hvis iter er i bunn
+                if (iter.left == null || iter.right == null) {
+                    
                 }
             }
         }
