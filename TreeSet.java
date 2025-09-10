@@ -37,6 +37,7 @@ public class TreeSet {
                 if (iter == null) {
                     counter++;
                     previous.right = ny;
+                    ny.parent = previous;
                     return;
                 }
             }
@@ -45,6 +46,7 @@ public class TreeSet {
                 if (iter == null){
                     counter++;
                     previous.left = ny;
+                    ny.parent = previous;
                     return;
                 }
             }
@@ -52,7 +54,56 @@ public class TreeSet {
     }
 
     public void remove(int value) {
-        counter--;
+        Node iter = root;
+        Node previous;
+
+        while (iter != null) {
+            previous = iter;
+
+            /*
+            if (iter.data == value) {
+                if (iter.left == null || iter.right == null) {
+                    previous.right = null;
+                    iter.parent = null;
+                    counter--;
+                    return;
+                }
+            }  
+            må fikses på men forhåpentligvis ikke trengt
+            må bare sette referanser riktig i de to under    
+            */
+
+            if (iter.data < value) {
+                iter = iter.right;
+                if(value == iter.data) {
+                    if (iter.left == null || iter.right == null) {
+                        previous.right = null;
+                        iter.parent = null;
+                        counter--;
+                        return;
+                    }
+                    else {
+                        previous.right = iter.right;
+                        iter.right.parent = iter.parent;
+                        counter--;
+                        return;
+                    }
+                }
+            }
+            else {
+                iter = iter.left;
+                //hvis iter er root
+                if (iter.parent == null) {
+                    
+                }
+
+                //hvis iter er i midten
+                
+                
+                //hvis iter er i bunn
+                }
+            }
+        }
     }
 
     public int size() {
