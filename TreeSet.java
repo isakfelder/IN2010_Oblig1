@@ -38,18 +38,18 @@ public class TreeSet {
             if (iter.data < value) {
                 iter = iter.right;
                 if (iter == null) {
-                    counter++;
                     previous.right = ny;
                     ny.parent = previous;
+                    counter++;
                     return;
                 }
             }
             else {
                 iter = iter.left;
                 if (iter == null){
-                    counter++;
                     previous.left = ny;
                     ny.parent = previous;
+                    counter++;
                     return;
                 }
             }
@@ -177,12 +177,14 @@ public class TreeSet {
 
             //er node større eller mindre enn iter
             //hvis større, gå høyre
-            if (iter.data > value) {
+            if (iter.data < value) {
                 iter = iter.right;
+                System.out.println("går høyre");
             }
             //hvis mindre (ellers), gå venstre
             else {
                 iter = iter.left;
+                System.out.println("går venstre");
             }
         }
         return;
