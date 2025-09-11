@@ -4,7 +4,7 @@ public class TreeSet {
     int counter = 0;
     Node root;
     public TreeSet() {
-        Node root = null;
+        this.root = null;
     }
 
     public boolean contains(int value) {
@@ -29,7 +29,8 @@ public class TreeSet {
 
         if (root == null) {
             root = ny; 
-            counter++;       
+            counter++; 
+            return;      
         }
         while (true) {
             if(value == iter.data) {return;}
@@ -199,8 +200,17 @@ public class TreeSet {
             String input = scanner.nextLine();
 
             String[] delt = input.split(" ");
+            //String instruksjon = delt[0];
+            //int verdi = Integer.parseInt(delt[1]);
+
+
+            //String[] delt = input.split(" ");
+
             String instruksjon = delt[0];
-            int verdi = Integer.parseInt(delt[1]);
+            int verdi = 0;
+            if (delt.length > 1) {
+                verdi = Integer.parseInt(delt[1]);
+            }
 
             switch (instruksjon) {
                 case "insert":
