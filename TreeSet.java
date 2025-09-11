@@ -172,20 +172,19 @@ public class TreeSet {
                         iter2.parent = null;
                         counter--;
                         return;
-                    }
+                    }        
             }
 
             //er node større eller mindre enn iter
             //hvis større, gå høyre
-            if (iter.data > value) {
+            if (iter.data < value) {
                 iter = iter.right;
             }
             //hvis mindre (ellers), gå venstre
             else {
                 iter = iter.left;
             }
-        }
-        return;
+        }        
     }
 
     public int size() {
