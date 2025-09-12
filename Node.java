@@ -12,7 +12,7 @@ public class Node {
     }
 
     public int getData() {
-        return data;
+        return data;  
     }
 
     public void setRight(Node right) {

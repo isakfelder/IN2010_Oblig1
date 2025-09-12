@@ -56,6 +56,131 @@ public class TreeSet {
         } 
     }
 
+    // uten parent for tror det er lettere og rotere og var lett og omgjøre
+    public void remove(int value) {
+        Node iter = root;
+        if (root.data == value) {
+            if (root.left == null && root.right == null) {
+                root = null;
+                counter--;
+                return;
+            }
+            if (root.right == null && root.left != null) {
+                root = root.left;
+                counter--;
+                return;
+            }
+            if (root.left == null && root.right != null) {
+                root = root.right;
+                counter--;
+                return;
+            }
+            else {
+                iter = root.right;
+                while (iter.left != null) {
+                    iter = iter.left;
+                }
+                root.data = iter.data;
+                counter--;
+                return;
+            }
+        }
+        Node forrige = root;
+        while (iter != null) {
+
+            //sjekk om node er value
+            if (iter.data == value) {
+                //hvis noden har 0 barn
+                if (iter.left == null && iter.right == null) {
+                    //sjekk om den er på høyre eller venstre side
+                    if (iter == forrige.right) {
+                        forrige.right = null;
+                        counter--;
+                        return;
+                    }
+                    if (iter == forrige.left) {
+                        forrige.left = null;
+                        counter--;
+                        return;
+                    }
+                }
+
+                //hvis noden har 1 barn
+                if (iter.left == null && iter.right != null || iter.right == null && iter.left != null) {
+                    //sjekk hvilken side barnet er på
+                    //node.previous peker på node.barn
+                    if (iter == forrige.right) {
+                        if (iter.left == null) {
+                            forrige.right = iter.right;
+                            counter--; 
+                            return;
+                        }
+                        if (iter.right == null) {
+                            forrige.right = iter.left;
+                           
+                            counter--;
+                            return;
+                        }
+                    }
+                    if (iter == forrige.left) {
+                        if (iter.left == null) {
+                            forrige.left = iter.right;
+                            counter--;
+                            return;
+                        }
+                        if (iter.right == null) {
+                            forrige.left = iter.left;
+                            counter--;
+                            return;
+                        }
+                    }
+                }
+
+                //hvis noden har 2 barn
+                    if (iter.right != null && iter.left != null) {
+                        //gå til den mest venstre verdien på høyre subtre, sett denne noden til iter.value, iter.previous.right/left 
+                        //(må sjekke hvilken side den er på), må oppdate referanser til den som blir flyttet også
+                        Node forrige2 = iter;
+                        Node iter2 = iter.right;
+                        while (iter2.left != null) {
+                            forrige2 = iter2;
+                            iter2 = iter2.left;
+                        }
+
+                        if (iter2.right != null) {
+                            iter.data = iter2.data;
+                            forrige2.left = null;
+                            forrige2.left = iter2.right;
+                            counter--;
+                            return;
+                        }
+
+                        iter.data = iter2.data;
+                        forrige2.left = null;
+                        
+                        counter--;
+                        return;
+                    }        
+            }
+
+            //er node større eller mindre enn iter
+            //hvis større, gå høyre
+            if (iter.data < value) {
+                forrige = iter;
+                iter = iter.right;
+                System.out.println("går høyre");
+            }
+            //hvis mindre (ellers), gå venstre
+            else {
+                forrige = iter;
+                iter = iter.left;
+                System.out.println("går venstre");
+            }
+        }        
+    }
+
+
+    /* 
     public void remove(int value) {
         Node iter = root;
         if (root.data == value) {
@@ -187,7 +312,7 @@ public class TreeSet {
                 System.out.println("går venstre");
             }
         }        
-    }
+    }*/
 
     public int size() {
         return counter;
