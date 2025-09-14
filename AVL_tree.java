@@ -234,14 +234,13 @@ public class AVL_tree {
                     System.out.println(tree.contains(verdi));
                     break;
                 case "dybde":
-                    System.out.println(tree.getDybde(verdi));
+                    System.out.println(tree.getDybde(verdi)); // for å skjekke om høyde/dybden er riktig i treet
                     break;
                 case "size":
                     System.out.println(tree.size());
                     break;
                 case "remove":
                     tree.remove(verdi);
-                    System.out.println(verdi);
                     break;
                 case "stop":
                     scanner.close();
