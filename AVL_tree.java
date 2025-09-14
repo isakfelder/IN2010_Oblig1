@@ -44,8 +44,7 @@ public class AVL_tree {
         }
 
         update_dybde(node);
-        //balanser(node); //balanse ved rekursiv veldig lett
-        return node;
+        return balanser(node); //balanse ved rekursiv veldig lett
     }
 
     public void remove(int value){
@@ -83,8 +82,7 @@ public class AVL_tree {
         }
 
         update_dybde(node);
-        //return balanser(node); //balanse ved rekursiv veldig lett for ikke parent pekere
-        return node;// trengs ikke mener jeg
+        return balanser(node); //balanse ved rekursiv veldig lett for ikke parent pekere
         
     }
 
@@ -151,6 +149,63 @@ public class AVL_tree {
         }
         System.out.println("Finnes ikke, prøv igjen!");
         return 0;
+        
+    }
+
+    public int balanse_Faktor(AVLnode v){
+        if(v == null){
+            return 0;
+        }
+        return dybde_beskyttet(v.left) - dybde_beskyttet(v.right);
+    }
+
+
+    public AVLnode balanser(AVLnode v){
+        if (balanse_Faktor(v)> 1){
+
+            if (balanse_Faktor(v.left) < 0){
+                v.left = leftTurn(v.left);
+            }
+            return rightTurn(v);
+        }else if (balanse_Faktor(v) < -1){
+
+            if (balanse_Faktor(v.right) > 0){
+                v.right = rightTurn(v.right);
+            }
+            return leftTurn(v);
+
+        }else return v;
+        
+        
+
+    }
+
+    public AVLnode rightTurn(AVLnode v){
+        AVLnode u = v.left;
+        AVLnode T1 = u.right;
+
+        u.right = v;
+        v.left = T1;
+
+        update_dybde(v);
+        update_dybde(u);
+
+        return u;
+
+    }
+
+    public AVLnode leftTurn(AVLnode v){
+
+        AVLnode u = v.right;
+        AVLnode T1 = u.left;
+
+        u.left = v;
+        v.right = T1;
+
+        update_dybde(v);
+        update_dybde(u);
+
+        return u;
         
     }
 
