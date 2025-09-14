@@ -22,6 +22,7 @@ public class Node {
     public void setLeft(Node left) {
         this.left = left;
     }
+    
     public void setParent(Node parent) {
         this.parent = parent;
     }

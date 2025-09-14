@@ -5,7 +5,6 @@ public class AVL_tree {
     AVLnode root = null;
 
     public AVL_tree(){
-        
     }
 
     private class AVLnode {
@@ -18,13 +17,11 @@ public class AVL_tree {
             this.data = data;
             dybde = 0;
         }
-   
     }
 
     // insert kallet som kan kalle balanser etter insertRec
     public void insert(int value) {
         root = insertRec(root, value);
-        
     }
 
     // Rekursiv insert fra roten så vi slipper parent i rotate, mere pekere og flytte mere kode da.
@@ -50,42 +47,37 @@ public class AVL_tree {
 
     public void remove(int value){
         root = removeRec(root, value);
-        
     }
 
-    public AVLnode removeRec(AVLnode node, int value){
-
+    public AVLnode removeRec(AVLnode node, int value) {
         if (node == null) return null;
 
-        if (node.data > value){
+        if (node.data > value) {
             node.left = removeRec(node.left, value );
         }
-        else if (node.data < value){
+        else if (node.data < value) {
             node.right = removeRec(node.right, value);
 
-        }else{
-
-            if (node.right == null){
+        } else {
+            if (node.right == null) {
                 counter--;
                 return node.left;
             }
 
-            else if(node.left == null){
+            else if(node.left == null) {
                 counter--;
                 return node.right;
 
-            }else{
+            } else {
                 AVLnode midlertidig = finnlav(node.right);
                 node.data = midlertidig.data;
                 node.right = removeRec(node.right, midlertidig.data); 
             }
-        
         }
 
         update_dybde(node);
         //return balanser(node); //balanse ved rekursiv veldig lett for ikke parent pekere
         return node;// trengs ikke mener jeg
-        
     }
 
     //finner den som skal ta over for i remove så man slipper re skrive kode
@@ -96,7 +88,6 @@ public class AVL_tree {
             min_H = min_H.left;
         }
         return min_H;
-
     }
 
     // setter dybden til noeden hvis de under har riktig verdi 
@@ -112,8 +103,6 @@ public class AVL_tree {
         } 
         return node.dybde;
     }
-
-
 
     public boolean contains(int value) {
         AVLnode iter = root;
@@ -151,10 +140,7 @@ public class AVL_tree {
         }
         System.out.println("Finnes ikke, prøv igjen!");
         return 0;
-        
     }
-
-
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -193,10 +179,7 @@ public class AVL_tree {
                     System.exit(1);
             }
         }
-        
     }
-
-
 }
 
 
