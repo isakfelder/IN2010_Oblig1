@@ -120,11 +120,6 @@ public class TreeSet {
             String input = scanner.nextLine();
 
             String[] delt = input.split(" ");
-            //String instruksjon = delt[0];
-            //int verdi = Integer.parseInt(delt[1]);
-
-
-            //String[] delt = input.split(" ");
 
             String instruksjon = delt[0];
             int verdi = 0;
