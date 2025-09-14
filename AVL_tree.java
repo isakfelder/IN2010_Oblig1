@@ -8,6 +8,19 @@ public class AVL_tree {
         
     }
 
+    private class AVLnode {
+        int data;
+        int dybde;
+        AVLnode right = null;
+        AVLnode left = null;
+
+        public AVLnode(int data) {
+            this.data = data;
+            dybde = 0;
+        }
+   
+    }
+
     // insert kallet som kan kalle balanser etter insertRec
     public void insert(int value) {
         root = insertRec(root, value);
@@ -38,33 +51,33 @@ public class AVL_tree {
     public void remove(int value){
         root = removeRec(root, value);
         
-
     }
 
     public AVLnode removeRec(AVLnode node, int value){
 
         if (node == null) return null;
 
-        if (node.data < value){
+        if (node.data > value){
             node.left = removeRec(node.left, value );
         }
-        else if (node.data > value){
+        else if (node.data < value){
             node.right = removeRec(node.right, value);
 
         }else{
 
             if (node.right == null){
                 counter--;
-                node = node.left;
+                return node.left;
             }
 
             else if(node.left == null){
                 counter--;
-                node = node.right;
+                return node.right;
+
             }else{
-                AVLnode midlertidig = finnlav(node);
+                AVLnode midlertidig = finnlav(node.right);
                 node.data = midlertidig.data;
-                removeRec(midlertidig, midlertidig.data); 
+                node.right = removeRec(node.right, midlertidig.data); 
             }
         
         }
@@ -77,23 +90,18 @@ public class AVL_tree {
 
     //finner den som skal ta over for i remove så man slipper re skrive kode
     public AVLnode finnlav(AVLnode node){
+
         AVLnode min_H = node;
-
-        if (min_H.right != null){
-            min_H = min_H.right;
-        }
-
         while(min_H.left != null){
             min_H = min_H.left;
         }
-        
         return min_H;
 
     }
 
     // setter dybden til noeden hvis de under har riktig verdi 
     public void update_dybde(AVLnode node){
-
+        if (node == null) return;
         node.dybde = 1 + Math.max(dybde_beskyttet(node.left), dybde_beskyttet(node.right));
     }
 
@@ -176,11 +184,21 @@ public class AVL_tree {
                 case "size":
                     System.out.println(tree.size());
                     break;
+                case "remove":
+                    tree.remove(verdi);
+                    System.out.println(verdi);
+                    break;
+                case "stop":
+                    scanner.close();
+                    System.exit(1);
             }
         }
+        
     }
 
 
 }
+
+
 
 
