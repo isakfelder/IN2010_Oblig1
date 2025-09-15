@@ -1,3 +1,4 @@
+//@olavwa @isakfe oblig1 15.09.2025
 
 FUNGSJON skrivut(LIST) 
 
