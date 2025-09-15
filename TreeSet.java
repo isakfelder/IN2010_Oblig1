@@ -1,3 +1,5 @@
+//@olavwa @isakfe oblig1 15.09.2025
+
 import java.util.Scanner;
 
 public class TreeSet {
