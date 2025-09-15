@@ -41,8 +41,7 @@ public class AVL_tree {
         }
 
         update_dybde(node);
-        //balanser(node); //balanse ved rekursiv veldig lett
-        return node;
+        return balanser(node); //balanse ved rekursiv veldig lett
     }
 
     public void remove(int value){
@@ -78,6 +77,7 @@ public class AVL_tree {
         update_dybde(node);
         //return balanser(node); //balanse ved rekursiv veldig lett for ikke parent pekere
         return node;// trengs ikke mener jeg
+        
     }
 
     //finner den som skal ta over for i remove så man slipper re skrive kode
@@ -142,6 +142,8 @@ public class AVL_tree {
         return 0;
     }
 
+
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         AVL_tree tree = new AVL_tree();
@@ -165,14 +167,13 @@ public class AVL_tree {
                     System.out.println(tree.contains(verdi));
                     break;
                 case "dybde":
-                    System.out.println(tree.getDybde(verdi));
+                    System.out.println(tree.getDybde(verdi)); // for å skjekke om høyde/dybden er riktig i treet
                     break;
                 case "size":
                     System.out.println(tree.size());
                     break;
                 case "remove":
                     tree.remove(verdi);
-                    System.out.println(verdi);
                     break;
                 case "stop":
                     scanner.close();
