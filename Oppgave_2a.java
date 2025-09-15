@@ -1,24 +1,21 @@
-import java.util.ArrayList;
-import java.util.Arrays;
 
-class Oppgave_2a{
-    public Oppgave_2a(){
+import java.util.ArrayList;
+
+class testing{
+    public testing(){
 
     }
 
     public void skrivut(ArrayList<Integer> inputs) {
     if (inputs.isEmpty()) return; // stopp hvis listen er tom
 
-    int midt = (inputs.size()) / 2;
-    int midtVerdi = inputs.remove(midt); // fjern og hent midterste verdi
-    System.out.println(midtVerdi);       // print midtverdien
-
     ArrayList<Integer> inputs1 = new ArrayList<>();
-    int halv = inputs.size() / 2;
 
-    for (int i = 0; i < halv; i++) {
+    int midt = (inputs.size()) / 2;
+    for (int i = 0; i<midt; i++) {
         inputs1.add(inputs.remove(0));
     }
+    System.out.println(inputs.remove(0)); 
 
     // rekursivt kall
     if (!inputs.isEmpty()) skrivut(inputs);
@@ -28,8 +25,11 @@ class Oppgave_2a{
 
 
     public static void main(String[] args){
-        Oppgave_2a pikaboo = new Oppgave_2a();
-        ArrayList<Integer> test = new ArrayList<>(Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10));
+        testing pikaboo = new testing();
+        ArrayList<Integer> test = new ArrayList<>();
+        for (int i = 0; i < 11; i++){
+            test.add(i);
+        }
         pikaboo.skrivut(test);
     }
 
