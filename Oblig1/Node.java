@@ -1,3 +1,4 @@
+package Oblig1;
 public class Node {
     int data;
     Node parent;

@@ -1,3 +1,4 @@
+package Oblig1;
 //@olavwa @isakfe oblig1 15.09.2025
 
 
