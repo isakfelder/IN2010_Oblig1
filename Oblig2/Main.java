@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Arrays;
 
-public class Sorter {
+public class Main {
     public static void main(String[] args) throws IOException {
         String filename = "C:\\Users\\IsakF\\Documents\\VScode\\IN2010\\IN2010  gruppe\\IN2010_Oblig1\\Oblig2\\random_10.txt";
         //String filename = args[0]; denne skal brukes!
