@@ -1,5 +1,4 @@
 public interface viktig {
-    int sammenligninger();
-    int bytter();
-
+    int get_Sammenligninger();
+    int get_Bytter();
 }

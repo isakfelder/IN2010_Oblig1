@@ -1,5 +1,7 @@
 public class Mergesort implements viktig{
-    
+    static int sammenligninger = 0;
+    static int bytter = 0;
+
     //sammenslår to subarrays av arr[]
     //første subarray er arr[l..m]
     //andre subarray er arr[m+1..r]
@@ -24,13 +26,16 @@ public class Mergesort implements viktig{
         int i = 0, j = 0;
 
         //initial index of merged subarray
-        int k = 1;
+        int k = l;
         while (i < n1 && j < n2) {
+            sammenligninger++;
             if (L[i] <= R[j]) {
                 arr[k] = L[i];
+                bytter++;
                 i++;
             } else {
                 arr[k] = R[j];
+                bytter++;
                 j++;
             }
             k++;
@@ -38,6 +43,7 @@ public class Mergesort implements viktig{
         //kopier gjenstående elemter fra L[] hvis noen
         while (i < n1) {
             arr[k] = L[i];
+            bytter++;
             i++;
             k++;
         }
@@ -45,6 +51,7 @@ public class Mergesort implements viktig{
         //kopier gjenstående elementer fra R[] hvis noen
         while (j < n2) {
             arr[k] = R[j];
+            bytter++;
             j++;
             k++;
         }
@@ -63,5 +70,14 @@ public class Mergesort implements viktig{
             //merge sorterte halvdeler
             merge(arr, l, m, r);
         }
+    }
+
+    @Override
+    public int get_Sammenligninger() {
+        return sammenligninger;
+    }
+    @Override
+    public int get_Bytter() {
+        return bytter;
     }
 }
