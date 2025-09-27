@@ -12,9 +12,11 @@ class SortRunner {
     // The student can adjust these parameters to conduct their experiments
 
     // Put the sorting algorithms under test for part 1 here
-    static final Sorter[] ALGS1 = { new Insertion(), new Quick() };
+    //static final Sorter[] ALGS1 = { new Insertion_sort(), new Quicksort(), new Mergesort() };
+    static final Sorter[] ALGS1 = { new Mergesort() };
     // Put the sorting algorithms under test for part 2 here
-    static final Sorter[] ALGS2 = { new Insertion(), new Quick() };
+    //static final Sorter[] ALGS2 = { new Insertion_sort(), new Quicksort(), new Mergesort() };
+    static final Sorter[] ALGS2 = { new Mergesort() };
     // Time limit for a single sorting in milliseconds
     static final long TIME_LIMIT_MS = 100;
     // How much n grows each iteration for part 2

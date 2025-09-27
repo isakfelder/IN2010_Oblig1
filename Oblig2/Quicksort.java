@@ -1,4 +1,4 @@
-public class Quicksort implements viktig{
+/*public class Quicksort extends Sorter{
     public Quicksort(){}
 
     
@@ -39,3 +39,4 @@ public class Quicksort implements viktig{
     }
     
 }
+*/

@@ -1,4 +1,4 @@
-public class Insertion_sort implements viktig{
+/*public class Insertion_sort extends Sorter{
     public Insertion_sort(){}
 
     public int[] sort(int[] noe){
@@ -18,4 +18,4 @@ public class Insertion_sort implements viktig{
         return noe;
 
     }
-}
+}*/

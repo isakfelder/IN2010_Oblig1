@@ -1,11 +1,36 @@
-public class Mergesort implements viktig{
-    static int sammenligninger = 0;
-    static int bytter = 0;
+import java.util.Arrays;
+
+public class Mergesort extends Sorter{
+    int sammenligninger;
+    int bytter;
+    int[] data;
+    long time;
+
+    public Mergesort() {}
+
+    @Override
+    public void initializePart1(int[] A) {
+        data = A.clone();
+    }
+
+    @Override
+    public void initializePart2(int[] A) {
+        data = A.clone();
+    }
+
+    @Override
+    public void sort() {
+        sammenligninger = 0;
+        bytter = 0;
+        long t = System.nanoTime();
+        mergeSort(data, 0, data.length - 1);
+        time = (System.nanoTime() - t) / 1000;
+    }
 
     //sammenslår to subarrays av arr[]
     //første subarray er arr[l..m]
     //andre subarray er arr[m+1..r]
-    static void merge(int arr[], int l, int m, int r) {
+    public void merge(int arr[], int l, int m, int r) {
         //finner størrelsen av to subarrays for å bli sammenslått
         int n1 = m - l + 1;
         int n2 = r - m;
@@ -58,7 +83,7 @@ public class Mergesort implements viktig{
     }
 
     //hovedfunksjon som sorterer arr[l..4] som bruker merge()
-    static void mergeSort(int arr[], int l, int r) {
+    public void mergeSort(int arr[], int l, int r) {
         if (l < r) {
             //finn middelpunktet
             int m = l + (r - 1) / 2;
@@ -72,12 +97,20 @@ public class Mergesort implements viktig{
         }
     }
 
+    /* 
     @Override
-    public int get_Sammenligninger() {
-        return sammenligninger;
+    public void runResetAndIncBy(int inc) {
+        int[] subarray = Arrays.copyOfRange(data, 0, inc);
+        sort();
+    }*/
+
+    @Override
+    public String algorithmName() {
+        return "mergeSort";
     }
-    @Override
-    public int get_Bytter() {
-        return bytter;
+
+    @Override 
+    public String headerString() {
+        return "merge_cmp, merge_swaps, merge_time";
     }
 }
