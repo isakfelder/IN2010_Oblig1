@@ -42,13 +42,15 @@ public class Main {
     //main fra oppgavens github som passer med sortrunner
     //vi bruker denne med Sorter.java og Sortrunner.java, blir lettest sånn :)
     public static void main(String[] args) throws Exception {
-        String filename = "C:\\Users\\IsakF\\Documents\\VScode\\IN2010\\IN2010  gruppe\\IN2010_Oblig1\\Oblig2\\random_10.txt";
+        /*String filename = "C:\\Users\\IsakF\\Documents\\VScode\\IN2010\\IN2010  gruppe\\IN2010_Oblig1\\Oblig2\\random_10.txt";
         //String filename = args[0];
         File file = new File(filename);
         BufferedReader in = new BufferedReader(new FileReader(file));
         int[] A = in.lines().mapToInt(i -> Integer.parseInt(i)).toArray();
         in.close();
-
+        */
+        String filename = "test";
+        int[] A = new int[]{7, 5, 3, 1, 9, 2, 4, 8, 6, 10};
         SortRunner.runAlgsPart1(A, filename);
         SortRunner.runAlgsPart2(A, filename);
     }

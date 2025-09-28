@@ -1,6 +1,18 @@
-/*public class Quicksort extends Sorter{
+public class Quicksort extends Sorter{
     public Quicksort(){}
+    public int sammenligninger;
+    public int bytter;
+    int[] data;
+    long time;
 
+    @Override
+    public void sort() {
+        sammenligninger = 0;
+        bytter = 0;
+        long t = System.nanoTime();
+        sort(data, 0, data.length - 1);
+        time = (System.nanoTime() - t) / 1000;
+    }
     
     public void sort(int[] arr, int low, int high){
         //int pivot = (high + low)/2;
@@ -39,4 +51,3 @@
     }
     
 }
-*/
