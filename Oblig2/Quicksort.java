@@ -13,6 +13,11 @@ public class Quicksort extends Sorter{
         sort(data, 0, data.length - 1);
         time = (System.nanoTime() - t) / 1000;
     }
+
+    @Override
+    public String algorithmName() {
+        return "quicksort";
+    }
     
     public void sort(int[] arr, int low, int high){
         //int pivot = (high + low)/2;
