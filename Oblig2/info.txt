@@ -1,2 +1,0 @@
-merge sort:
-https://www.geeksforgeeks.org/dsa/merge-sort/
