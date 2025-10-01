@@ -36,37 +36,13 @@ abstract class Sorter {
     abstract String algorithmName();
 
     // A swapping method that counts
-    void swap(int i, int j) {
-        swaps++;
-        int tmp = A[i];
-        A[i] = A[j];
-        A[j] = tmp;
+    void swap() {
+        swaps++;    
     }
 
     // Comparisons that count
-    boolean lt(int a, int b) {
+    void comparison(){
         comparisons++;
-        return a < b;
-    }
-
-    boolean leq(int a, int b) {
-        comparisons++;
-        return a <= b;
-    }
-
-    boolean gt(int a, int b) {
-        comparisons++;
-        return a > b;
-    }
-
-    boolean geq(int a, int b) {
-        comparisons++;
-        return a >= b;
-    }
-
-    boolean eq(int a, int b) {
-        comparisons++;
-        return a == b;
     }
 
     // For SortRunner
