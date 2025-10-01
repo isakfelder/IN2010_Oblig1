@@ -10,7 +10,7 @@ public class Quicksort extends Sorter{
         sammenligninger = 0;
         bytter = 0;
         long t = System.nanoTime();
-        sort(data, 0, data.length - 1);
+        quicksort(data, 0, data.length);
         time = (System.nanoTime() - t) / 1000;
     }
 
@@ -19,7 +19,7 @@ public class Quicksort extends Sorter{
         return "quicksort";
     }
     
-    public void sort(int[] arr, int low, int high){
+    public void quicksort(int[] arr, int low, int high){
         //int pivot = (high + low)/2;
         if (low < high){
             int pivot = arr[high];
