@@ -42,7 +42,7 @@ public class Quicksort extends Sorter{
             // Viktig: bruk 'low' videre, ikke 0
             quicksort(this.A, low, j - 1);
             quicksort(this.A, j + 1, high);
-        }else{return;}
+        }
     }
     
 }

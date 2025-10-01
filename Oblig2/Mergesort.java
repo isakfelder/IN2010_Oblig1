@@ -1,30 +1,28 @@
 import java.util.Arrays;
 
 public class Mergesort extends Sorter{
-    int sammenligninger;
-    int bytter;
-    int[] data;
-    long time;
 
     public Mergesort() {}
 
     @Override
     public void initializePart1(int[] A) {
-        data = A.clone();
+        super.initializePart1(A);
     }
 
     @Override
     public void initializePart2(int[] A) {
-        data = A.clone();
+        super.initializePart2(A);
     }
 
     @Override
-    public void sort() {
-        sammenligninger = 0;
-        bytter = 0;
-        long t = System.nanoTime();
-        mergeSort(data, 0, data.length - 1);
-        time = (System.nanoTime() - t) / 1000;
+    public String algorithmName() {
+        return "Mergesort";
+    }
+
+    @Override
+    public void sort(){
+        mergeSort(A, 0, A.length -1);
+        
     }
 
     //sammenslår to subarrays av arr[]
@@ -41,9 +39,11 @@ public class Mergesort extends Sorter{
 
         //kopier data til midlertidige arrays
         for (int i = 0; i < n1; i++) {
+            comparison();
             L[i] = arr[l + i];
         }
         for (int j = 0; j < n2; j++) {
+            comparison();
             R[j] = arr[m + 1 + j];
         }
 
@@ -53,30 +53,34 @@ public class Mergesort extends Sorter{
         //initial index of merged subarray
         int k = l;
         while (i < n1 && j < n2) {
-            sammenligninger++;
+            comparison();
+            comparison();
+            comparison();
             if (L[i] <= R[j]) {
                 arr[k] = L[i];
-                bytter++;
+                swap();
                 i++;
             } else {
                 arr[k] = R[j];
-                bytter++;
+                swap();
                 j++;
             }
             k++;
         }
         //kopier gjenstående elemter fra L[] hvis noen
         while (i < n1) {
+            comparison();
             arr[k] = L[i];
-            bytter++;
+            swap();
             i++;
             k++;
         }
 
         //kopier gjenstående elementer fra R[] hvis noen
         while (j < n2) {
+            comparison();
             arr[k] = R[j];
-            bytter++;
+            swap();
             j++;
             k++;
         }
@@ -84,9 +88,10 @@ public class Mergesort extends Sorter{
 
     //hovedfunksjon som sorterer arr[l..4] som bruker merge()
     public void mergeSort(int arr[], int l, int r) {
+        comparison();
         if (l < r) {
             //finn middelpunktet
-            int m = l + (r - 1) / 2;
+            int m = (l + (r - 1)) / 2;
 
             //sorter første og andre halvdeler
             mergeSort(arr, l, m);
@@ -97,20 +102,4 @@ public class Mergesort extends Sorter{
         }
     }
 
-    /* 
-    @Override
-    public void runResetAndIncBy(int inc) {
-        int[] subarray = Arrays.copyOfRange(data, 0, inc);
-        sort();
-    }*/
-
-    @Override
-    public String algorithmName() {
-        return "mergeSort";
-    }
-
-    @Override 
-    public String headerString() {
-        return "merge_cmp, merge_swaps, merge_time";
-    }
 }

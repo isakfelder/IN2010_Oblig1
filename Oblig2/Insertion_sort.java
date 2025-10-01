@@ -29,7 +29,6 @@ public class Insertion_sort extends Sorter{
             int key = noe[i];
             int j = i - 1;
 
-
             while(j >= 0 && noe[j] > key){
                 comparison();
                 comparison();

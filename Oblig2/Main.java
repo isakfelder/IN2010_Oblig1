@@ -16,7 +16,7 @@ public class Main {
         in.close();
         */
         String filename = "test";
-        int[] A = new int[]{7, 5, 3, 1, 9, 2, 4, 6, 8, 10,11,12,13,14,15};
+        int[] A = new int[]{7, 5, 3, 1, 8, 2, 4, 6,10,9,15,14,12,11,13};
         SortRunner.runAlgsPart1(A, filename);
         SortRunner.runAlgsPart2(A, filename);
     }
