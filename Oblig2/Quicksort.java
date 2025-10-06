@@ -1,4 +1,4 @@
-public class Quicksort extends Sorter{
+/*public class Quicksort extends Sorter{
     public Quicksort(){}
     public int sammenligninger;
     public int bytter;
@@ -68,3 +68,4 @@ public class Quicksort extends Sorter{
     }
     
 }
+*/

@@ -38,7 +38,7 @@ public class Mergesort extends Sorter{
 
     private void mergeSortRec(int l, int r) {
         if (l < r) {
-            int m = l + (r - 1) / 2;
+            int m = l + (r - l) / 2;
             mergeSortRec(l, m);
             mergeSortRec(m + 1, r);
             merge(l, m, r);
@@ -123,10 +123,5 @@ public class Mergesort extends Sorter{
     @Override
     public String algorithmName() {
         return "mergeSort";
-    }
-
-    @Override 
-    public String headerString() {
-        return "merge_cmp, merge_swaps, merge_time";
     }
 }
