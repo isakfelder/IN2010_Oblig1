@@ -1,22 +1,19 @@
+//isakfe / olavwa oblig2 in2010 h25
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.PrintWriter;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
-//denne lå på github ved oppgaven, ikke sikker på om denne er lettest å bruke
-//main er nok ikke helt rett implementert for at denne skal funke, litt usikker
-
 class SortRunner {
 
     // The student can adjust these parameters to conduct their experiments
 
     // Put the sorting algorithms under test for part 1 here
-    //static final Sorter[] ALGS1 = { new Insertion_sort(), new Quicksort(), new Mergesort() };
-    static final Sorter[] ALGS1 = { new Mergesort() };
+    static final Sorter[] ALGS1 = { new Insertion_sort(), new Quicksort(), new Mergesort(), new Bubblesort() };
     // Put the sorting algorithms under test for part 2 here
-    //static final Sorter[] ALGS2 = { new Insertion_sort(), new Quicksort(), new Mergesort() };
-    static final Sorter[] ALGS2 = { new Mergesort() };
+    static final Sorter[] ALGS2 = { new Insertion_sort(), new Quicksort(), new Mergesort(), new Bubblesort() };
     // Time limit for a single sorting in milliseconds
     static final long TIME_LIMIT_MS = 100;
     // How much n grows each iteration for part 2

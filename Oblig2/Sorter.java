@@ -1,3 +1,5 @@
+//isakfe / olavwa oblig2 in2010 h25 (gjort noen små endringer)
+
 import java.util.Arrays;
 
 abstract class Sorter {

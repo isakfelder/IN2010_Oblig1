@@ -1,4 +1,4 @@
-import java.util.Arrays;
+//isakfe / olavwa oblig2 in2010 h25
 
 public class Mergesort extends Sorter{
     int sammenligninger;
@@ -72,7 +72,6 @@ public class Mergesort extends Sorter{
         int k = l;
         while (i < n1 && j < n2) {
             comparison();
-            comparison();
             if (L[i] <= R[j]) {
                 A[k] = L[i];
                 swap();
@@ -86,7 +85,6 @@ public class Mergesort extends Sorter{
         }
         //kopier gjenstående elemter fra L[] hvis noen
         while (i < n1) {
-            comparison();
             A[k] = L[i];
             swap();
             i++;
@@ -95,30 +93,12 @@ public class Mergesort extends Sorter{
 
         //kopier gjenstående elementer fra R[] hvis noen
         while (j < n2) {
-            comparison();
             A[k] = R[j];
             swap();
             j++;
             k++;
         }
     }
-
-    /* 
-
-    //hovedfunksjon som sorterer arr[l..4] som bruker merge()
-    public void mergeSort(int arr[], int l, int r) {
-        if (l < r) {
-            //finn middelpunktet
-            int m = l + (r - 1) / 2;
-
-            //sorter første og andre halvdeler
-            mergeSort(arr, l, m);
-            mergeSort(arr, m + 1, r);
-
-            //merge sorterte halvdeler
-            merge(arr, l, m, r);
-        }
-    }*/
 
     @Override
     public String algorithmName() {

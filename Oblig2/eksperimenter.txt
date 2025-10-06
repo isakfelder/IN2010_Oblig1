@@ -1,0 +1,68 @@
+Vi har ikke implementert at kun de raske algoritmene kjører ved større filer.
+
+Kjøretiden stemmer ganske bra med stor-o notasjon.
+Her har jeg kjørt random_10000 og tallene er ganske tydelige.
+på n=10000
+insertion sort:
+cmp: 24925372
+swaps: 9999
+time: 9420ms
+
+quicksort:
+cmp: 158179
+swaps: 85637
+time: 366ms
+
+mergesort:
+cmp: 120466
+swaps: 133616
+time: 565ms
+
+bubblesort:
+cmp: 49977609
+swaps: 24925372 
+time: 26832ms
+
+insertionsort og bubblesort er utrolig treige med vanlig kjøretid på O(n^2)
+quicksort og mergesort med O(nlogn) er mye mye raskere, notasjonen stemmer
+
+Her er det tydelig at sammenligninger har en stor påvirkning på kjøretid.
+Bytter har derimot ikke så mye å si, siden bubblesort er desidert tregest, men har utrolig mange bytter.
+
+insertion sort utmerker seg godt for små n, siden sorteringsalgoritmen er såpass rett frem.
+
+quicksort og mergesort utmerker seg for store n
+disse er godt optimalisert
+mergesort er utrolig stabilt og en trygg metode å bruke, quicksort kan ende opp med å bruke lang tid (sjeldent)
+
+mergesort og quicksort utmerker seg godt for store n
+insertionsort fungerer bra på nearly_sorted siden denne metoden bare blir raskere og raskere jo mer sortert arrayet er
+
+Kjørte nearly_sorted_10000
+på n = 10000
+insertion sort:
+cmp: 4523
+swaps: 9999
+time: 42ms
+
+quicksort:
+cmp: 35463483
+swaps: 35459954
+time: 36593ms
+
+mergesort:
+cmp: 70551
+swaps: 133616
+time: 248ms
+
+bubblesort:
+cmp: 49985
+swaps: 4523
+time: 39ms
+
+Her ser vi at insertionsort og bubblesort er lynraske og at størrelsen på arrayet nesten ikke har noe å si
+mergesort utmerker seg også, mye raskere enn quicksort
+For store n ville jeg alltid valgt mergesort, da det virker som denne er utrolig stabil
+bubblesort gjøre 10x så mange sammenligninger, men er fortsatt like rask som insertionsort
+
+gøy :)
