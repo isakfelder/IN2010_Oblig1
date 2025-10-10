@@ -1,6 +1,3 @@
-package Oblig1;
-//@olavwa @isakfe oblig1 15.09.2025
-
 import java.util.Scanner;
 
 public class TreeSet {
@@ -18,7 +15,6 @@ public class TreeSet {
         public Node(int data) {
             this.data = data;
         }
-   
     }
 
       // insert kallet som kan kalle balanser etter insertRec
@@ -42,8 +38,6 @@ public class TreeSet {
         } else {
             return node; // duplikat
         }
-
-
         return node; //balanse ved rekursiv veldig lett
     }
     
@@ -81,9 +75,7 @@ public class TreeSet {
             }
         
         }
-
         return node; //balanse ved rekursiv veldig lett for ikke parent pekere
-        
     }
 
     public Node finnlav(Node node){
@@ -93,7 +85,6 @@ public class TreeSet {
             min_H = min_H.left;
         }
         return min_H;
-
     }
 
     public boolean contains(int value) {

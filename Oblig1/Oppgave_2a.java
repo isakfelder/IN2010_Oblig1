@@ -1,12 +1,8 @@
-package Oblig1;
-//@olavwa @isakfe oblig1 15.09.2025
 
 import java.util.ArrayList;
 
 class testing{
-    public testing(){
-
-    }
+    public testing(){}
 
     public void skrivut(ArrayList<Integer> inputs) {
     if (inputs.isEmpty()) return; // stopp hvis listen er tom
@@ -22,7 +18,6 @@ class testing{
     // rekursivt kall
     if (!inputs.isEmpty()) skrivut(inputs);
     if (!inputs1.isEmpty()) skrivut(inputs1);
-    
 }
 
 
@@ -34,6 +29,4 @@ class testing{
         }
         pikaboo.skrivut(test);
     }
-
-    
 }

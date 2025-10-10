@@ -1,15 +1,10 @@
-package Oblig1;
-//@olavwa @isakfe oblig1 15.09.2025
-
-
 import java.util.Scanner;
 
 public class AVL_tree {
     int counter = 0;
     AVLnode root = null;
 
-    public AVL_tree(){
-    }
+    public AVL_tree(){}
 
     private class AVLnode {
         int data;
@@ -26,6 +21,7 @@ public class AVL_tree {
     // insert kallet som kan kalle balanser etter insertRec
     public void insert(int value) {
         root = insertRec(root, value);
+        
     }
 
     // Rekursiv insert fra roten så vi slipper parent i rotate, mere pekere og flytte mere kode da.
@@ -52,26 +48,28 @@ public class AVL_tree {
         root = removeRec(root, value);
     }
 
-    public AVLnode removeRec(AVLnode node, int value) {
+    public AVLnode removeRec(AVLnode node, int value){
+
         if (node == null) return null;
 
-        if (node.data > value) {
+        if (node.data > value){
             node.left = removeRec(node.left, value );
         }
-        else if (node.data < value) {
+        else if (node.data < value){
             node.right = removeRec(node.right, value);
 
-        } else {
-            if (node.right == null) {
+        }else{
+
+            if (node.right == null){
                 counter--;
                 return node.left;
             }
 
-            else if(node.left == null) {
+            else if(node.left == null){
                 counter--;
                 return node.right;
 
-            } else {
+            }else{
                 AVLnode midlertidig = finnlav(node.right);
                 node.data = midlertidig.data;
                 node.right = removeRec(node.right, midlertidig.data); 
@@ -79,9 +77,7 @@ public class AVL_tree {
         }
 
         update_dybde(node);
-        //return balanser(node); //balanse ved rekursiv veldig lett for ikke parent pekere
-        return node;// trengs ikke mener jeg
-        
+        return balanser(node); //balanse ved rekursiv veldig lett for ikke parent pekere
     }
 
     //finner den som skal ta over for i remove så man slipper re skrive kode
@@ -92,6 +88,7 @@ public class AVL_tree {
             min_H = min_H.left;
         }
         return min_H;
+
     }
 
     // setter dybden til noeden hvis de under har riktig verdi 
@@ -144,6 +141,57 @@ public class AVL_tree {
         }
         System.out.println("Finnes ikke, prøv igjen!");
         return 0;
+    }
+
+    public int balanse_Faktor(AVLnode v){
+        if(v == null){
+            return 0;
+        }
+        return dybde_beskyttet(v.left) - dybde_beskyttet(v.right);
+    }
+
+    public AVLnode balanser(AVLnode v){
+        if (balanse_Faktor(v)> 1){
+
+            if (balanse_Faktor(v.left) < 0){
+                v.left = leftTurn(v.left);
+            }
+            return rightTurn(v);
+        }else if (balanse_Faktor(v) < -1){
+
+            if (balanse_Faktor(v.right) > 0){
+                v.right = rightTurn(v.right);
+            }
+            return leftTurn(v);
+
+        }else return v;
+    }
+
+    public AVLnode rightTurn(AVLnode v){
+        AVLnode u = v.left;
+        AVLnode T1 = u.right;
+
+        u.right = v;
+        v.left = T1;
+
+        update_dybde(v);
+        update_dybde(u);
+
+        return u;
+    }
+
+    public AVLnode leftTurn(AVLnode v){
+
+        AVLnode u = v.right;
+        AVLnode T1 = u.left;
+
+        u.left = v;
+        v.right = T1;
+
+        update_dybde(v);
+        update_dybde(u);
+
+        return u;
     }
 
 
