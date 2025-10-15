@@ -16,14 +16,9 @@ public class grafbygger {
         ArrayList<Node> skuespillere = les_og_bygg_Actors(Actors); //liste med alle skuespillere, som node objekter
         ArrayList<Edge> filmer = les_og_bygg_Movies(Movies);
 
-        byggGraf();
     }
 
     public grafbygger() {
-    }
-
-    public static void byggGraf() {
-        
     }
 
     public static ArrayList<Edge> les_og_bygg_Movies(File fil) {
