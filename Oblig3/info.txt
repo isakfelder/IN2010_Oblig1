@@ -1,0 +1,24 @@
+idk sikkert nyttig å ha den her
+
+jeg velger skuespillere som noder og filmer som kanter
+siden det kun kan være en skuespiller, 
+men kan være mange filmer per skuespiller
+
+Dette funker:
+Skuespillere blir lest inn rett og får sine attributter i konstruktøren
+De får også en liste med film-id'er de har deltatt i
+
+Filmer blir lest inn rett og får sine attributter i konstruktøren
+
+litt usikker på hvordan vi skal bygge grafen rett her
+
+
+for (int i = 0; i < skuespillere.size(); i++) {
+    System.out.println(skuespillere.get(i).toString());
+} 
+denne er for å skrive ut data om skuespillere
+
+for (int i = 0; i < filmer.size(); i++) {
+    System.out.println(filmer.get(i).toString());
+} 
+denne er for å skrive ut data om filmer

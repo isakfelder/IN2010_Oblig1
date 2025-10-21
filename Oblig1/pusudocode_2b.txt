@@ -1,0 +1,31 @@
+
+FUNGSJON skrivut(LIST) 
+
+HVIS HEAP tom er tom:
+    return
+
+midt <- HEAP.size() / 2
+HEAP <- ny tom HEAP
+
+FOR i fra 0 til midt:
+    flytter minste element i HEAP til  HEAP1
+
+print HEAP.poll()
+
+HVIS Heap ikke tom  skrivut(HEAP)
+HVIS Heap1 ikke tom  skrivut(HEAP1)
+
+
+MAIN 
+pikaboo <- lager ny instans av oppgave_2b
+test <- lager ny HEAP
+
+FOR i fra 0 til 11:
+    HEAP legg til i
+
+skrivut(HEAP)
+
+
+
+
+    
