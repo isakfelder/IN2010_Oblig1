@@ -1,0 +1,29 @@
+Oppgave_1
+viker som du har satt det opp litt som det skall men så er jo også filmer noder,
+men antal koblinger til vær film til sammen blir på en måte edgene sånn jeg forstod.
+
+lurer på om alternativ 1 gjør oppgavene vidre lettere men snakker om det på mandag. 
+blir kansje mere det samme en jeg tror.
+
+
+Oppgave_2 (alternativ 2 i oppgave en gjør den litt rar for både filmer og skuespillere er noder.)
+tor det kan løses med et til sett for filmer da.
+
+dette blir litt som å løse en labyrint. 
+eneste forskjelen er at isteden for å ha faste veier 
+har vi et set(søkte bare og den er kjapp til å skjekke),
+og vi putter skuespillerene den har gått igjennom inn der så 
+veiene som ikke leder til en som er i disse er muligheter. 
+
+rekursivt og går vakover hvis den ikke har flere veier helt til alle er gått.
+når alle er gått har vi komponentet. men da må vi itterere gjennom for å finne neste som ikke er med, 
+for å starte neste komponent(er ikke helt siker på noe smart løsnig på denne).
+
+oppgave_3
+sliter litt med denne men forstod det som at man lagrer masse verdier for nodene,
+og så har men en node man skal til som når man kommer dit har et altall kanter/steg verdi.
+så hvis andre retninger overstiger dette stopper de eller hvis andre retninger korter denne så kortes
+mulighetene ande veier har så den ikke trenger skjekke alle muligheter for blir ekstremt mange flere.
+
+
+
