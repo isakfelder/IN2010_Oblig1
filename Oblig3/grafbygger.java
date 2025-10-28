@@ -6,15 +6,16 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
+import java.util.StringJoiner;
 
 public class grafbygger {
 
     public static void main(String[] args) {
 
-        String ActorsPath = "C:\\Users\\IsakF\\Documents\\VScode\\IN2010\\Oblig1\\IN2010_Oblig1\\Oblig3\\marvel_actors.tsv";
+        String ActorsPath = "C:\\Users\\IsakF\\Documents\\VScode\\IN2010\\IN2010  gruppe\\IN2010_Oblig1\\Oblig3\\marvel_actors.tsv";
         File Actors = new File(ActorsPath);
 
-        String MoviesPath = "C:\\Users\\IsakF\\Documents\\VScode\\IN2010\\Oblig1\\IN2010_Oblig1\\Oblig3\\marvel_movies.tsv";
+        String MoviesPath = "C:\\Users\\IsakF\\Documents\\VScode\\IN2010\\IN2010  gruppe\\IN2010_Oblig1\\Oblig3\\marvel_movies.tsv";
         File Movies = new File(MoviesPath);
 
         grafbygger g = new grafbygger();
@@ -27,10 +28,58 @@ public class grafbygger {
 
         Map<Node, List<Node>> graf = g.byggGraf(actorMap, movieMap);
         System.out.println("Bygde graf med " + graf.size() + " noder.");
+
+        // Skriv ut grafen (adjacency list)
+        skrivUtGraf(graf);
+
+        // Skriv ut filmer -> skuespillere
+        skrivUtFilmTilSkuespillere(actorMap, movieMap);
+
+
     }
 
     public grafbygger() {
 
+    }
+
+    // Skriver ut grafen som en adjacency-liste: hver node etterfulgt av sine naboer
+    public static void skrivUtGraf(Map<Node, List<Node>> graf) {
+        for (Map.Entry<Node, List<Node>> entry : graf.entrySet()) {
+            Node node = entry.getKey();
+            List<Node> naboer = entry.getValue();
+
+            StringJoiner sj = new StringJoiner(", ");
+            for (Node n : naboer) {
+                sj.add(n.getName() + " (" + n.getId() + ")");
+            }
+
+            System.out.println(node.getName() + " (" + node.getId() + ") -> [" + sj.toString() + "]");
+        }
+    }
+
+    // Skriver ut for hver film (id, navn) lista av skuespillere som er med i filmen
+    public static void skrivUtFilmTilSkuespillere(Map<String, Node> actorMap, Map<String, Edge> movieMap) {
+        // Bygg map fra filmId -> liste over Node (skuespillere)
+        Map<String, List<Node>> filmTilSkuespillere = new HashMap<>();
+        for (Node actor : actorMap.values()) {
+            for (String filmId : actor.getMovies()) {
+                filmTilSkuespillere.computeIfAbsent(filmId, k -> new ArrayList<>()).add(actor);
+            }
+        }
+
+        // Skriv ut hver film med navn (hvis kjent) og skuespillere
+        for (Map.Entry<String, List<Node>> entry : filmTilSkuespillere.entrySet()) {
+            String filmId = entry.getKey();
+            Edge film = movieMap.get(filmId);
+            String filmNavn = (film != null) ? film.getName() : "(ukjent tittel)";
+
+            StringJoiner sj = new StringJoiner(", ");
+            for (Node n : entry.getValue()) {
+                sj.add(n.getName() + " (" + n.getId() + ")");
+            }
+
+            System.out.println(filmNavn + " [" + filmId + "] -> [" + sj.toString() + "]");
+        }
     }
 
     public Map<Node, List<Node>> byggGraf(Map<String, Node> actorMap, Map<String, Edge> movieMap) {
