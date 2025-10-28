@@ -14,18 +14,20 @@ public class grafbygger {
 
     public static void main(String[] args) {
 
-        String ActorsPath = "C:\\Users\\IsakF\\Documents\\VScode\\IN2010\\Oblig1\\IN2010_Oblig1\\Oblig3\\marvel_actors.tsv";
+        String ActorsPath = "C:\\Users\\IsakF\\Documents\\VScode\\IN2010\\IN2010  gruppe\\IN2010_Oblig1\\Oblig3\\marvel_actors.tsv";
         File ActorsFil = new File(ActorsPath);
 
-        String MoviesPath = "C:\\Users\\IsakF\\Documents\\VScode\\IN2010\\Oblig1\\IN2010_Oblig1\\Oblig3\\marvel_movies.tsv";
+        String MoviesPath = "C:\\Users\\IsakF\\Documents\\VScode\\IN2010\\IN2010  gruppe\\IN2010_Oblig1\\Oblig3\\marvel_movies.tsv";
         File MoviesFil = new File(MoviesPath);
 
         grafbygger g = new grafbygger();
 
         ArrayList<Actor> actors = les_og_bygg_Actors(ActorsFil);
-        ArrayList<Movie> movies = les_og_bygg_Movies(MoviesFil);
+        Map<String, Movie> movieMap = les_og_bygg_Movies(MoviesFil);
 
-        g.byggGraf(actors, movies);
+        g.byggGraf(actors, movieMap);
+
+        System.out.println(g.adjGraf);
     }
 
     public grafbygger() {
@@ -44,12 +46,35 @@ public class grafbygger {
     }
 
     public void addActor(Actor actor) {
-        adjGraf.putIfAbsent(actor, new HashSet<>());
+        adjGraf.putIfAbsent(actor, new HashSet<Edge>());
     }
 
-    public Map<Actor, Set<Edge>> byggGraf(ArrayList<Actor> actors, ArrayList<Movie> movies) {
+    public Map<Actor, Set<Edge>> byggGraf(ArrayList<Actor> actors, Map<String, Movie> movieMap) {
+        for (Actor actor : actors) {
+            addActor(actor);
+        }
         
+        for (Actor actor : adjGraf.keySet()) {
+            ArrayList<String> filmer = actor.getMovies();
 
+            for (Actor actor2 : adjGraf.keySet()) {
+                ArrayList<String> filmer2 = actor2.getMovies();
+
+                if (actor.getId() == actor2.getId()) {
+                    continue;
+                }
+
+                for (String filmId : filmer) {
+                    for (String filmId2 : filmer2) {
+                        if (filmId == filmId2) {
+                            Movie currentMovie = movieMap.get(filmId);
+                            float currentRating = currentMovie.getRating();
+                            addEdge(actor, actor2, filmId, currentRating);
+                        }
+                    }
+                }
+            }
+        }
         return adjGraf;
     }
 
@@ -74,8 +99,8 @@ public class grafbygger {
         return actors;
     }
 
-    public static ArrayList<Movie> les_og_bygg_Movies(File fil) {
-        ArrayList<Movie> movies = new ArrayList<>();
+    public static Map<String, Movie> les_og_bygg_Movies(File fil) {
+        Map<String, Movie> movieMap = new HashMap<>();
 
         try (BufferedReader br = new BufferedReader(new FileReader(fil))) {
             String linje;
@@ -84,11 +109,11 @@ public class grafbygger {
                 String[] deler = linje.split("\t");
                 Movie ny = new Movie(deler[0], deler[1], Float.parseFloat(deler[2]), Integer.parseInt(deler[3]));
 
-                movies.add(ny);
+                movieMap.put(deler[0], ny);
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return movies;
+        return movieMap;
     }
 }

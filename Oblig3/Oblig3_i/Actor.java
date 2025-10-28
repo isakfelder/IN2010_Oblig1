@@ -27,7 +27,14 @@ public class Actor { //denne er for actors
         return movies;
     }
 
+    @Override
+    public String toString() {
+        return "Name: " + name;
+    }
+
+    /* 
+    @Override
     public String toString() {
         return "Name: " + name + ", id: " + id + ", filmer: " + movies;
-    }
+    }*/
 }
