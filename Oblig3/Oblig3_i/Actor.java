@@ -29,7 +29,7 @@ public class Actor { //denne er for actors
 
     @Override
     public String toString() {
-        return "Name: " + name;
+        return "Actor name: " + name;
     }
 
     /* 

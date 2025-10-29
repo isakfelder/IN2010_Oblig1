@@ -28,6 +28,9 @@ public class grafbygger {
         g.byggGraf(actors, movieMap);
 
         System.out.println(g.adjGraf);
+
+        System.out.println(g.getActorCount());
+        System.out.println(g.getEdgeCount());
     }
 
     public grafbygger() {
@@ -49,33 +52,41 @@ public class grafbygger {
         adjGraf.putIfAbsent(actor, new HashSet<Edge>());
     }
 
-    public Map<Actor, Set<Edge>> byggGraf(ArrayList<Actor> actors, Map<String, Movie> movieMap) {
-        for (Actor actor : actors) {
-            addActor(actor);
-        }
+    public void byggGraf(ArrayList<Actor> actors, Map<String, Movie> movieMap) {
+        Map<String, Actor> actorById = new HashMap<>();
         
-        for (Actor actor : adjGraf.keySet()) {
-            ArrayList<String> filmer = actor.getMovies();
+        //legg til skuespillere i adjgraf
+        for (Actor a : actors) {
+            adjGraf.put(a, new HashSet<>()); //dette er raskerere enn å kalle på addActor
+            actorById.put(a.getId(), a);
+        }
 
-            for (Actor actor2 : adjGraf.keySet()) {
-                ArrayList<String> filmer2 = actor2.getMovies();
+        //legg til skuespillere på hver film [filmid, skuespiller]
+        Map<String, List<Actor>> skuespillereIFilm = new HashMap<>();
+        for (Actor actor : actors) {
+            for (String filmId : actor.getMovies()) {
+                skuespillereIFilm.computeIfAbsent(filmId, k -> new ArrayList<>()).add(actor);
+            }
+        }
 
-                if (actor.getId() == actor2.getId()) {
-                    continue;
-                }
+        //lag kanter
+        for (Map.Entry<String, List<Actor>> entry : skuespillereIFilm.entrySet()) {
+            String filmId = entry.getKey();
+            List<Actor> skuespillere = entry.getValue();
+            Movie film = movieMap.get(filmId);
+            float rating = film.getRating();
+            
+            for (int i = 0; i < skuespillere.size(); i++) {
+                for (int j = i + 1; j < skuespillere.size(); j++) {
+                    Actor a1 = skuespillere.get(i);
+                    Actor a2 = skuespillere.get(j);
 
-                for (String filmId : filmer) {
-                    for (String filmId2 : filmer2) {
-                        if (filmId == filmId2) {
-                            Movie currentMovie = movieMap.get(filmId);
-                            float currentRating = currentMovie.getRating();
-                            addEdge(actor, actor2, filmId, currentRating);
-                        }
-                    }
+                    adjGraf.get(a1).add(new Edge(a2, filmId, rating));
+                    adjGraf.get(a2).add(new Edge(a1, filmId, rating));
                 }
             }
         }
-        return adjGraf;
+        //return adjGraf;
     }
 
     public static ArrayList<Actor> les_og_bygg_Actors(File fil) {
@@ -115,5 +126,17 @@ public class grafbygger {
             e.printStackTrace();
         }
         return movieMap;
+    }
+
+    public int getActorCount() {
+        return adjGraf.size();
+    }
+
+    public int getEdgeCount() {
+        int count = 0;
+        for (Set<Edge> edges : adjGraf.values()) {
+            count += edges.size();
+        }
+        return count / 2;
     }
 }

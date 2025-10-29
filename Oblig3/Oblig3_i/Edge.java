@@ -23,6 +23,6 @@ public class Edge {
 
     @Override
     public String toString() {
-        return "==[ " + movieId + " (" + rating + ") " + toActor + " ]==>";
+        return "Edge: " + movieId + " (" + rating + ") to actor: " + toActor;
     }
 }
