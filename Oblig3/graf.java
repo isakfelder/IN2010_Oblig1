@@ -1,8 +1,10 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.HashSet;
 
 
@@ -23,7 +25,7 @@ public class Graf {
 
     public void komponenter(){
         HashSet<Actor> tidligere = new HashSet<>();
-        HashMap<Integer, Integer> utskrift = new HashMap<>();
+        TreeMap<Integer, Integer> utskrift = new TreeMap<>(Collections.reverseOrder());
 
         for (Actor a: actor){
             if (!tidligere.contains(a)){
