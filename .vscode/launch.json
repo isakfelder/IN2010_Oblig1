@@ -1,0 +1,56 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "AVL_tree",
+            "request": "launch",
+            "mainClass": "AVL_tree",
+            "projectName": "IN2010_Oblig1_e081fe20"
+        },
+        {
+            "type": "java",
+            "name": "Main",
+            "request": "launch",
+            "mainClass": "Main",
+            "projectName": "IN2010_Oblig1_e081fe20"
+        },
+        {
+            "type": "java",
+            "name": "Oppgave_2b",
+            "request": "launch",
+            "mainClass": "Oppgave_2b",
+            "projectName": "IN2010_Oblig1_e081fe20"
+        },
+        {
+            "type": "java",
+            "name": "TreeSet",
+            "request": "launch",
+            "mainClass": "TreeSet",
+            "projectName": "IN2010_Oblig1_e081fe20"
+        },
+        {
+            "type": "java",
+            "name": "grafbygger",
+            "request": "launch",
+            "mainClass": "grafbygger",
+            "projectName": "IN2010_Oblig1_e081fe20"
+        },
+        {
+            "type": "java",
+            "name": "testing",
+            "request": "launch",
+            "mainClass": "testing",
+            "projectName": "IN2010_Oblig1_e081fe20"
+        }
+    ]
+}

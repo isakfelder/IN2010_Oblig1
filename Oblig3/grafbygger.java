@@ -13,14 +13,19 @@ public class grafbygger {
     private Map<Actor, Set<Edge>> adjGraf;
   
     public static void main(String[] args) {
-
+        //System.out.println("Current working directory: " + System.getProperty("user.dir"));
         //lager den tomme i main så den har tilgang til den siden den er static
         HashMap<Actor, Set<Edge>> adjGraf = new HashMap<>();
 
-        String ActorsPath = "marvel_actors.tsv";
+        //av en eller annen merkelig grunn så er ikke working directoriet mitt i oblig 3, så da fungerer ikke filene her
+        //String ActorsPath = "marvel_actors.tsv";
+        String ActorsPath = "C:\\Users\\IsakF\\Documents\\VScode\\IN2010\\IN2010  gruppe\\IN2010_Oblig1\\Oblig3\\actors.tsv";
+        //String ActorsPath = "C:\\Users\\IsakF\\Documents\\VScode\\IN2010\\IN2010  gruppe\\IN2010_Oblig1\\Oblig3\\marvel_actors.tsv";
         File ActorsFil = new File(ActorsPath);
 
-        String MoviesPath = "marvel_movies.tsv";
+        //String MoviesPath = "marvel_movies.tsv";
+        String MoviesPath = "C:\\Users\\IsakF\\Documents\\VScode\\IN2010\\IN2010  gruppe\\IN2010_Oblig1\\Oblig3\\movies.tsv";
+        //String MoviesPath = "C:\\Users\\IsakF\\Documents\\VScode\\IN2010\\IN2010  gruppe\\IN2010_Oblig1\\Oblig3\\marvel_movies.tsv";
         File MoviesFil = new File(MoviesPath);
 
         grafbygger g = new grafbygger(adjGraf);
@@ -32,9 +37,8 @@ public class grafbygger {
 
         //System.out.println(g.adjGraf);
 
-        System.out.println(g.getActorCount());
-        System.out.println(g.getEdgeCount());
-
+        //System.out.println(g.getActorCount());
+        //System.out.println(g.getEdgeCount());
 
         Graf tester = new Graf(adjGraf, actors, movieMap);
         tester.komponenter();
