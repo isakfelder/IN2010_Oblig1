@@ -6,120 +6,128 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
-import java.util.StringJoiner;
+import java.util.Set;
+import java.util.HashSet;
 
 public class grafbygger {
+    private Map<Actor, Set<Edge>> adjGraf;
 
     public static void main(String[] args) {
 
-        String ActorsPath = "C:\\Users\\IsakF\\Documents\\VScode\\IN2010\\IN2010  gruppe\\IN2010_Oblig1\\Oblig3\\marvel_actors.tsv";
-        File Actors = new File(ActorsPath);
+        HashMap<Actor, Set<Edge>> adjGraf = new HashMap<>();
 
-        String MoviesPath = "C:\\Users\\IsakF\\Documents\\VScode\\IN2010\\IN2010  gruppe\\IN2010_Oblig1\\Oblig3\\marvel_movies.tsv";
-        File Movies = new File(MoviesPath);
+        String ActorsPath = "actors.tsv";
+        File ActorsFil = new File(ActorsPath);
 
-        grafbygger g = new grafbygger();
+        String MoviesPath = "movies.tsv";
+        File MoviesFil = new File(MoviesPath);
 
-        Map<String, Node> actorMap = les_og_bygg_Actors(Actors);
-        Map<String, Edge> movieMap = les_og_bygg_Movies(Movies);
+        grafbygger g = new grafbygger(adjGraf);
 
-        //System.out.println("Filmer: " + g.antallFilmer());
-        //System.out.println("Skuespillere: " + g.antallSkuespillere());
+        ArrayList<Actor> actors = les_og_bygg_Actors(ActorsFil);
+        Map<String, Movie> movieMap = les_og_bygg_Movies(MoviesFil);
 
-        Map<Node, List<Node>> graf = g.byggGraf(actorMap, movieMap);
-        System.out.println("Bygde graf med " + graf.size() + " noder.");
+        g.byggGraf(actors, movieMap);
 
-        // Skriv ut grafen (adjacency list)
-        skrivUtGraf(graf);
+        //System.out.println(g.adjGraf);
 
-        // Skriv ut filmer -> skuespillere
-        skrivUtFilmTilSkuespillere(actorMap, movieMap);
+        System.out.println(g.getActorCount());
+        System.out.println(g.getEdgeCount());
 
-
-    }
-
-    public grafbygger() {
-
-    }
-
-    // Skriver ut grafen som en adjacency-liste: hver node etterfulgt av sine naboer
-    public static void skrivUtGraf(Map<Node, List<Node>> graf) {
-        for (Map.Entry<Node, List<Node>> entry : graf.entrySet()) {
-            Node node = entry.getKey();
-            List<Node> naboer = entry.getValue();
-
-            StringJoiner sj = new StringJoiner(", ");
-            for (Node n : naboer) {
-                sj.add(n.getName() + " (" + n.getId() + ")");
-            }
-
-            System.out.println(node.getName() + " (" + node.getId() + ") -> [" + sj.toString() + "]");
-        }
-    }
-
-    // Skriver ut for hver film (id, navn) lista av skuespillere som er med i filmen
-    public static void skrivUtFilmTilSkuespillere(Map<String, Node> actorMap, Map<String, Edge> movieMap) {
-        // Bygg map fra filmId -> liste over Node (skuespillere)
-        Map<String, List<Node>> filmTilSkuespillere = new HashMap<>();
-        for (Node actor : actorMap.values()) {
-            for (String filmId : actor.getMovies()) {
-                filmTilSkuespillere.computeIfAbsent(filmId, k -> new ArrayList<>()).add(actor);
-            }
-        }
-
-        // Skriv ut hver film med navn (hvis kjent) og skuespillere
-        for (Map.Entry<String, List<Node>> entry : filmTilSkuespillere.entrySet()) {
-            String filmId = entry.getKey();
-            Edge film = movieMap.get(filmId);
-            String filmNavn = (film != null) ? film.getName() : "(ukjent tittel)";
-
-            StringJoiner sj = new StringJoiner(", ");
-            for (Node n : entry.getValue()) {
-                sj.add(n.getName() + " (" + n.getId() + ")");
-            }
-
-            System.out.println(filmNavn + " [" + filmId + "] -> [" + sj.toString() + "]");
-        }
-    }
-
-    public Map<Node, List<Node>> byggGraf(Map<String, Node> actorMap, Map<String, Edge> movieMap) {
-        Map<Node, List<Node>> graf = new HashMap<>();
-
-        //film med alle skuespillere som har spilt i den
-        Map<String, List<Node>> filmTilSkuespillere = new HashMap<>();
+        Graf tester = new Graf(adjGraf, actors, movieMap);
+        tester.komponenter();
         
-        //gå gjennom alle skuespillere og legg de til i filmTilSkuespillere
-        for (Node actor : actorMap.values()) {
-            for (String filmId : actor.getMovies()) {
-                filmTilSkuespillere.computeIfAbsent(filmId, k -> new ArrayList<>()).add(actor);
-            }
+    }
+
+    public grafbygger(Map<Actor, Set<Edge>> adjGraf) {
+        this.adjGraf = adjGraf;
+    }
+
+    public void addEdge(Actor actor1, Actor actor2, String movieId, float rating) {
+        addActor(actor1);
+        addActor(actor2);
+
+        Edge edge = new Edge(actor2, movieId, rating);
+        adjGraf.get(actor1).add(edge);
+
+        Edge tilbakeEdge = new Edge(actor1, movieId, rating);
+        adjGraf.get(actor2).add(tilbakeEdge);
+    }
+
+    public void addActor(Actor actor) {
+        adjGraf.putIfAbsent(actor, new HashSet<Edge>());
+    }
+
+    public void byggGraf(ArrayList<Actor> actors, Map<String, Movie> movieMap) {
+        Map<String, Actor> actorById = new HashMap<>();
+        
+        //legg til skuespillere i adjgraf
+        for (Actor a : actors) {
+            adjGraf.put(a, new HashSet<>()); //dette er raskerere enn å kalle på addActor
+            actorById.put(a.getId(), a);
         }
 
-        //for hver film, koble sammen alle skuespillere i den filmen
-        for (List<Node> cast : filmTilSkuespillere.values()) {
-            for (int i = 0; i < cast.size(); i++) {
-                Node a = cast.get(i);
+        //legg til skuespillere på hver film [filmid, skuespiller]
+        Map<String, List<Actor>> skuespillereIFilm = new HashMap<>();
+        for (Actor actor : actors) {
+            for (String filmId : actor.getMovies()) {
+                skuespillereIFilm.computeIfAbsent(filmId, k -> new ArrayList<>()).add(actor);
+            }
+        }
+        //lag kanter
+        for (Map.Entry<String, List<Actor>> entry : skuespillereIFilm.entrySet()) {
+            String filmId = entry.getKey();
+            List<Actor> skuespillere = entry.getValue();
+            Movie film = movieMap.get(filmId);
+            if (film == null) {
+                // System.out.println("Fant ikke film med id: '" + filmId + "'");
+                continue; // hopper over denne filmen
+            }
+            float rating = film.getRating();
+            
+            for (int i = 0; i < skuespillere.size(); i++) {
+                for (int j = i + 1; j < skuespillere.size(); j++) {
+                    Actor a1 = skuespillere.get(i);
+                    Actor a2 = skuespillere.get(j);
 
-                for (int j = i + 1; j < cast.size(); j++) {
-                    Node b = cast.get(j);
-
-                    graf.computeIfAbsent(a, k -> new ArrayList<>()).add(b);
-                    graf.computeIfAbsent(b, k -> new ArrayList<>()).add(a);
+                    adjGraf.get(a1).add(new Edge(a2, filmId, rating));
+                    adjGraf.get(a2).add(new Edge(a1, filmId, rating));
                 }
             }
         }
-        return graf;
+        //return adjGraf;
     }
 
-    public static Map<String, Edge> les_og_bygg_Movies(File fil) {
-        Map<String, Edge> movieMap = new HashMap<>();
+    public static ArrayList<Actor> les_og_bygg_Actors(File fil) {
+        ArrayList<Actor> actors = new ArrayList<>();
 
         try (BufferedReader br = new BufferedReader(new FileReader(fil))) {
             String linje;
 
             while ((linje = br.readLine()) != null) {
                 String[] deler = linje.split("\t");
-                Edge ny = new Edge(deler[0], deler[1], Float.parseFloat(deler[2]), Integer.parseInt(deler[3]));
+                Actor ny = new Actor(deler[0], deler[1]);
+
+                for (int i = 2; i < deler.length; i++) { //skal kjøre for hvor mange tt-ider hver skuespiller har
+                    ny.addMovie(deler[i]);
+                }
+                actors.add(ny);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return actors;
+    }
+
+    public static Map<String, Movie> les_og_bygg_Movies(File fil) {
+        Map<String, Movie> movieMap = new HashMap<>();
+
+        try (BufferedReader br = new BufferedReader(new FileReader(fil))) {
+            String linje;
+
+            while ((linje = br.readLine()) != null) {
+                String[] deler = linje.split("\t");
+                Movie ny = new Movie(deler[0], deler[1], Float.parseFloat(deler[2]), Integer.parseInt(deler[3]));
 
                 movieMap.put(deler[0], ny);
             }
@@ -129,24 +137,15 @@ public class grafbygger {
         return movieMap;
     }
 
-    public static Map<String, Node> les_og_bygg_Actors(File fil) {
-        Map<String, Node> actorMap = new HashMap<>();
+    public int getActorCount() {
+        return adjGraf.size();
+    }
 
-        try (BufferedReader br = new BufferedReader(new FileReader(fil))) {
-            String linje;
-
-            while ((linje = br.readLine()) != null) {
-                String[] deler = linje.split("\t");
-                Node ny = new Node(deler[0], deler[1]);
-
-                for (int i = 2; i < deler.length; i++) { //skal kjøre for hvor mange tt-ider hver skuespiller har
-                    ny.addMovie(deler[i]);
-                }
-                actorMap.put(deler[0], ny);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+    public int getEdgeCount() {
+        int count = 0;
+        for (Set<Edge> edges : adjGraf.values()) {
+            count += edges.size();
         }
-        return actorMap;
+        return count / 2;
     }
 }
