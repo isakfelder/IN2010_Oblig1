@@ -33,10 +33,8 @@ public class Graf {
             }
         } 
 
-        System.out.println("Hei noe er feil!");
-
         for (Map.Entry<Integer, Integer> entry : utskrift.entrySet()) {
-            System.out.println("There are" + entry.getValue() + "components of size" + entry.getKey());
+            System.out.println("There are " + entry.getValue() + " components of size " + entry.getKey());
         }
 
     }
@@ -48,8 +46,9 @@ public class Graf {
         Set<Edge> edges = graf.get(a);
         if (edges != null){
             for (Edge e: edges){
-                if(!tidligere.contains(e.getToActor())){
-                    komp_rek(e.getToActor(), tidligere);    
+                Actor nabo = e.getToActor();
+                if(!tidligere.contains(nabo)){
+                    komp_rek(nabo, tidligere);    
                 }
             }
         }

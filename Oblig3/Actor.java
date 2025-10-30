@@ -32,6 +32,23 @@ public class Actor { //denne er for actors
         return "Actor name: " + name;
     }
 
+    //prøvd med og uten dette endrer ikke utfallet (noe chat sa)
+    /*
+     @Override
+public boolean equals(Object o) {
+    if (this == o) return true;              // Samme objekt
+    if (o == null || getClass() != o.getClass()) return false;
+    Actor actor = (Actor) o;
+    return id.equals(actor.id);              // Sammenlign på ID
+}
+
+@Override
+public int hashCode() {
+    return id.hashCode();                    // Bruk samme felt som i equals
+} 
+    */
+
+
     /* 
     @Override
     public String toString() {

@@ -11,15 +11,16 @@ import java.util.HashSet;
 
 public class grafbygger {
     private Map<Actor, Set<Edge>> adjGraf;
-
+  
     public static void main(String[] args) {
 
+        //lager den tomme i main så den har tilgang til den siden den er static
         HashMap<Actor, Set<Edge>> adjGraf = new HashMap<>();
 
-        String ActorsPath = "actors.tsv";
+        String ActorsPath = "marvel_actors.tsv";
         File ActorsFil = new File(ActorsPath);
 
-        String MoviesPath = "movies.tsv";
+        String MoviesPath = "marvel_movies.tsv";
         File MoviesFil = new File(MoviesPath);
 
         grafbygger g = new grafbygger(adjGraf);
@@ -33,6 +34,7 @@ public class grafbygger {
 
         System.out.println(g.getActorCount());
         System.out.println(g.getEdgeCount());
+
 
         Graf tester = new Graf(adjGraf, actors, movieMap);
         tester.komponenter();
