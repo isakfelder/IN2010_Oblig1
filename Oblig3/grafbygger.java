@@ -18,13 +18,14 @@ public class grafbygger {
         HashMap<Actor, Set<Edge>> adjGraf = new HashMap<>();
 
         //av en eller annen merkelig grunn så er ikke working directoriet mitt i oblig 3, så da fungerer ikke filene her
+        
         //String ActorsPath = "marvel_actors.tsv";
-        String ActorsPath = "C:\\Users\\IsakF\\Documents\\VScode\\IN2010\\IN2010  gruppe\\IN2010_Oblig1\\Oblig3\\actors.tsv";
+        String ActorsPath = "actors.tsv";
         //String ActorsPath = "C:\\Users\\IsakF\\Documents\\VScode\\IN2010\\IN2010  gruppe\\IN2010_Oblig1\\Oblig3\\marvel_actors.tsv";
         File ActorsFil = new File(ActorsPath);
 
         //String MoviesPath = "marvel_movies.tsv";
-        String MoviesPath = "C:\\Users\\IsakF\\Documents\\VScode\\IN2010\\IN2010  gruppe\\IN2010_Oblig1\\Oblig3\\movies.tsv";
+        String MoviesPath = "movies.tsv";
         //String MoviesPath = "C:\\Users\\IsakF\\Documents\\VScode\\IN2010\\IN2010  gruppe\\IN2010_Oblig1\\Oblig3\\marvel_movies.tsv";
         File MoviesFil = new File(MoviesPath);
 

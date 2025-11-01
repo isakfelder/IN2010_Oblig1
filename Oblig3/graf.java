@@ -10,7 +10,7 @@ import java.util.Stack;
 
 
 // ikke noe som fungerer mere tanker og litt oppsett (stackoverflow) noe som feiler og den looper tror jeg.
-public class Graf {
+public class Graf{
     HashMap<Actor, Set<Edge>> graf;
     ArrayList<Actor> actor;
     Map<String, Movie> movie;
@@ -26,7 +26,7 @@ public class Graf {
 
     public void komponenter() {
         HashSet<Actor> besøkt = new HashSet<>();
-        HashMap<Integer, Integer> komponentStr = new HashMap<>();
+        TreeMap<Integer, Integer> komponentStr = new TreeMap<>(Collections.reverseOrder());
 
         for (Actor a : actor) {
             if (!besøkt.contains(a)) {
@@ -64,7 +64,7 @@ public class Graf {
             }
         }
         return teller;
-    }
+    } 
 
     /* 
     public void komponenter(){
