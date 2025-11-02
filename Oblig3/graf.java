@@ -7,7 +7,8 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.HashSet;
 import java.util.Stack;
-
+import java.util.Queue;
+import java.util.LinkedList;
 
 // ikke noe som fungerer mere tanker og litt oppsett (stackoverflow) noe som feiler og den looper tror jeg.
 public class Graf{
@@ -64,6 +65,56 @@ public class Graf{
             }
         }
         return teller;
+    } 
+
+    public void BFS(Actor start, Actor goal){
+        HashMap<Actor, Actor> vei = new HashMap<>();
+        iter_BFS(start,goal, vei);
+
+        Actor current = start;
+        while(current != goal){
+            
+            System.out.println(
+                "" + current.getName() + 
+                " =====> " +" Film "+" =====> " + 
+                ""+ vei.get(current).getName()+
+                ".");
+            current = vei.get(current);
+
+
+        }
+
+
+    }
+
+    public void iter_BFS(Actor start, Actor goal,HashMap<Actor, Actor> vei){
+        Queue<Actor> kø = new LinkedList<>();
+        HashSet<Actor> besøkt = new HashSet<>();
+        kø.add(start);
+        while(!kø.isEmpty()) {
+            Actor nåværende = kø.poll(); 
+            if (besøkt.contains(nåværende)) {
+                continue;
+            }
+            besøkt.add(nåværende);
+
+            Set<Edge> kanter = graf.get(nåværende);
+            if (kanter != null) {
+                for (Edge k : kanter) {
+                    Actor nabo = k.getToActor();
+                    if (nabo == goal){ 
+                        vei.put(nabo,nåværende);
+                        return; 
+                    }
+                    if (!besøkt.contains(nabo)) {
+                        kø.add(nabo);
+                        vei.put(nabo,nåværende);
+                    }
+                }
+            }
+        }
+    
+
     } 
 
     /* 

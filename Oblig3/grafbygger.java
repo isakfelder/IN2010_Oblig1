@@ -20,12 +20,12 @@ public class grafbygger {
         //av en eller annen merkelig grunn så er ikke working directoriet mitt i oblig 3, så da fungerer ikke filene her
         
         //String ActorsPath = "marvel_actors.tsv";
-        String ActorsPath = "actors.tsv";
+        String ActorsPath = "marvel_actors.tsv";
         //String ActorsPath = "C:\\Users\\IsakF\\Documents\\VScode\\IN2010\\IN2010  gruppe\\IN2010_Oblig1\\Oblig3\\marvel_actors.tsv";
         File ActorsFil = new File(ActorsPath);
 
         //String MoviesPath = "marvel_movies.tsv";
-        String MoviesPath = "movies.tsv";
+        String MoviesPath = "marvel_movies.tsv";
         //String MoviesPath = "C:\\Users\\IsakF\\Documents\\VScode\\IN2010\\IN2010  gruppe\\IN2010_Oblig1\\Oblig3\\marvel_movies.tsv";
         File MoviesFil = new File(MoviesPath);
 
@@ -42,7 +42,10 @@ public class grafbygger {
         //System.out.println(g.getEdgeCount());
 
         Graf tester = new Graf(adjGraf, actors, movieMap);
-        tester.komponenter();
+        //tester.komponenter();
+        System.out.println("starter på " + actors.get(4).getName());
+        System.out.println("slutter på " + actors.get(18).getName());
+        tester.BFS(actors.get(4),actors.get(18));
         
     }
 
@@ -50,14 +53,14 @@ public class grafbygger {
         this.adjGraf = adjGraf;
     }
 
-    public void addEdge(Actor actor1, Actor actor2, String movieId, float rating) {
+    public void addEdge(Actor actor1, Actor actor2, String movieId, float rating, String film_name) {
         addActor(actor1);
         addActor(actor2);
 
-        Edge edge = new Edge(actor2, movieId, rating);
+        Edge edge = new Edge(actor2, movieId, rating, film_name);
         adjGraf.get(actor1).add(edge);
 
-        Edge tilbakeEdge = new Edge(actor1, movieId, rating);
+        Edge tilbakeEdge = new Edge(actor1, movieId, rating, film_name);
         adjGraf.get(actor2).add(tilbakeEdge);
     }
 
@@ -91,14 +94,15 @@ public class grafbygger {
                 continue; // hopper over denne filmen
             }
             float rating = film.getRating();
+            String film_name = film.getName();
             
             for (int i = 0; i < skuespillere.size(); i++) {
                 for (int j = i + 1; j < skuespillere.size(); j++) {
                     Actor a1 = skuespillere.get(i);
                     Actor a2 = skuespillere.get(j);
 
-                    adjGraf.get(a1).add(new Edge(a2, filmId, rating));
-                    adjGraf.get(a2).add(new Edge(a1, filmId, rating));
+                    adjGraf.get(a1).add(new Edge(a2, filmId, rating, film_name));
+                    adjGraf.get(a2).add(new Edge(a1, filmId, rating, film_name));
                 }
             }
         }
