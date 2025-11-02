@@ -20,12 +20,12 @@ public class grafbygger {
         //av en eller annen merkelig grunn så er ikke working directoriet mitt i oblig 3, så da fungerer ikke filene her
         
         //String ActorsPath = "marvel_actors.tsv";
-        String ActorsPath = "marvel_actors.tsv";
+        String ActorsPath = "actors.tsv";
         //String ActorsPath = "C:\\Users\\IsakF\\Documents\\VScode\\IN2010\\IN2010  gruppe\\IN2010_Oblig1\\Oblig3\\marvel_actors.tsv";
         File ActorsFil = new File(ActorsPath);
 
         //String MoviesPath = "marvel_movies.tsv";
-        String MoviesPath = "marvel_movies.tsv";
+        String MoviesPath = "movies.tsv";
         //String MoviesPath = "C:\\Users\\IsakF\\Documents\\VScode\\IN2010\\IN2010  gruppe\\IN2010_Oblig1\\Oblig3\\marvel_movies.tsv";
         File MoviesFil = new File(MoviesPath);
 
@@ -43,9 +43,9 @@ public class grafbygger {
 
         Graf tester = new Graf(adjGraf, actors, movieMap);
         //tester.komponenter();
-        System.out.println("starter på " + actors.get(4).getName());
-        System.out.println("slutter på " + actors.get(18).getName());
-        tester.BFS(actors.get(4),actors.get(18));
+        System.out.println("starter på " + actors.get(1112).getName());
+        System.out.println("slutter på " + actors.get(18000).getName());
+        tester.BFS(actors.get(1112),actors.get(18000));
         
     }
 
@@ -57,11 +57,9 @@ public class grafbygger {
         addActor(actor1);
         addActor(actor2);
 
-        Edge edge = new Edge(actor2, movieId, rating, film_name);
+        Edge edge = new Edge(actor1, actor2, movieId, rating, film_name);
         adjGraf.get(actor1).add(edge);
-
-        Edge tilbakeEdge = new Edge(actor1, movieId, rating, film_name);
-        adjGraf.get(actor2).add(tilbakeEdge);
+        adjGraf.get(actor2).add(edge);
     }
 
     public void addActor(Actor actor) {
@@ -101,8 +99,7 @@ public class grafbygger {
                     Actor a1 = skuespillere.get(i);
                     Actor a2 = skuespillere.get(j);
 
-                    adjGraf.get(a1).add(new Edge(a2, filmId, rating, film_name));
-                    adjGraf.get(a2).add(new Edge(a1, filmId, rating, film_name));
+                    addEdge(a1, a2, filmId, rating, film_name);
                 }
             }
         }
@@ -157,6 +154,6 @@ public class grafbygger {
         for (Set<Edge> edges : adjGraf.values()) {
             count += edges.size();
         }
-        return count / 2;
+        return count/2;
     }
 }

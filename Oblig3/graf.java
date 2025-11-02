@@ -17,8 +17,6 @@ public class Graf{
     Map<String, Movie> movie;
 
 
-    private int teller = 0;
-
     public Graf( HashMap<Actor ,Set<Edge>> graf,ArrayList<Actor> actor, Map<String, Movie> movie){
         this.graf = graf;
         this.actor = actor;
@@ -44,7 +42,7 @@ public class Graf{
     private int komp_iterativ(Actor start, HashSet<Actor> besøkt) {
         Stack<Actor> stack = new Stack<>();
         stack.push(start);
-        teller = 0;
+        int størrelse = 0;
 
         while (!stack.isEmpty()) {
             Actor nåværende = stack.pop();
@@ -52,104 +50,84 @@ public class Graf{
                 continue;
             }
             besøkt.add(nåværende);
-            teller++;
+            størrelse++;
 
             Set<Edge> kanter = graf.get(nåværende);
             if (kanter != null) {
                 for (Edge k : kanter) {
-                    Actor nabo = k.getToActor();
+                    Actor nabo = k.getToActor(nåværende);
                     if (!besøkt.contains(nabo)) {
                         stack.push(nabo);
                     }
                 }
             }
         }
-        return teller;
+        return størrelse;
     } 
 
+
+
     public void BFS(Actor start, Actor goal){
-        HashMap<Actor, Actor> vei = new HashMap<>();
-        iter_BFS(start,goal, vei);
-
-        Actor current = start;
-        while(current != goal){
-            
-            System.out.println(
-                "" + current.getName() + 
-                " =====> " +" Film "+" =====> " + 
-                ""+ vei.get(current).getName()+
-                ".");
-            current = vei.get(current);
-
-
+        if (start == goal) {
+            System.out.println(start.getName());
+            return;
         }
 
+        HashMap<Actor, Edge> vei = new HashMap<>();
+        Boolean finnes = iter_BFS(start,goal, vei);
 
-    }
-
-    public void iter_BFS(Actor start, Actor goal,HashMap<Actor, Actor> vei){
-        Queue<Actor> kø = new LinkedList<>();
-        HashSet<Actor> besøkt = new HashSet<>();
-        kø.add(goal);
-        while(!kø.isEmpty()) {
-            Actor nåværende = kø.poll(); 
-            if (besøkt.contains(nåværende)) {
-                continue;
-            }
-            besøkt.add(nåværende);
-
-            Set<Edge> kanter = graf.get(nåværende);
-            if (kanter != null) {
-                for (Edge k : kanter) {
-                    Actor nabo = k.getToActor();
-                    if (nabo == start){ 
-                        vei.put(nabo,nåværende);
-                        return; 
-                    }
-                    if (!besøkt.contains(nabo)) {
-                        kø.add(nabo);
-                        vei.put(nabo,nåværende);
-                    }
-                }
-            }
+        if (finnes == false) {
+            System.out.println("Ingen sti funnet fra " + start.getName() + " til " + goal.getName());
+            return;
         }
     
 
-    } 
-
-    /* 
-    public void komponenter(){
-        HashSet<Actor> tidligere = new HashSet<>();
-        TreeMap<Integer, Integer> utskrift = new TreeMap<>(Collections.reverseOrder());
-
-        for (Actor a: actor){
-            if (!tidligere.contains(a)){
-                komp_rek(a, tidligere); 
-                utskrift.put(teller, utskrift.getOrDefault(teller, 0) + 1);
-                teller = 0;
-            }
-        } 
-
-        for (Map.Entry<Integer, Integer> entry : utskrift.entrySet()) {
-            System.out.println("There are " + entry.getValue() + " components of size " + entry.getKey());
+        Stack<String> utskrift = new Stack<>();
+        Actor current = goal;
+        while(current != start){
+            
+            String reversed = (
+                vei.get(current).getToActor(current).getName() + 
+                " =====> [ " + vei.get(current).getFilm_Navn() + " ] =====> " + 
+                current.getName());
+                
+                utskrift.add(reversed);
+                
+            current = vei.get(current).getToActor(current);
         }
-        System.out.println("Kom meg hit!");
-    }*/
+        while(!utskrift.isEmpty()){System.out.println(utskrift.pop());}
 
-    /* 
-    private void komp_rek(Actor a, HashSet<Actor> tidligere){
-        // rekursive delen tar imot hvor den var og kansje hashset kansje 
-        tidligere.add(a);
-        teller++;
-        Set<Edge> edges = graf.get(a);
-        if (edges != null){
-            for (Edge e: edges){
-                Actor nabo = e.getToActor();
-                if(!tidligere.contains(nabo)){
-                    komp_rek(nabo, tidligere);    
+    }
+    
+    public Boolean iter_BFS(Actor start, Actor goal,HashMap<Actor, Edge> vei){
+        Queue<Actor> kø = new LinkedList<>();
+        HashSet<Actor> besøkt = new HashSet<>();
+
+        kø.add(start);
+        besøkt.add(start);
+        vei.put(start, null);
+
+        while(!kø.isEmpty()) {
+            Actor nåværende = kø.poll(); 
+            Set<Edge> kanter = graf.get(nåværende);
+
+            if (kanter != null) {
+
+                for (Edge k : kanter) {
+                    Actor nabo = k.getToActor(nåværende);
+
+                    if (!besøkt.contains(nabo)) {
+                        kø.add(nabo);
+                        besøkt.add(nabo);
+                        vei.put(nabo,k);
+
+                        if (nabo == goal){ return true; }
+                    }
+                    
                 }
             }
-        }
-    }*/
-
+        } 
+        return false;
+    } 
+    
 }
