@@ -90,7 +90,7 @@ public class Graf{
     public void iter_BFS(Actor start, Actor goal,HashMap<Actor, Actor> vei){
         Queue<Actor> kø = new LinkedList<>();
         HashSet<Actor> besøkt = new HashSet<>();
-        kø.add(start);
+        kø.add(goal);
         while(!kø.isEmpty()) {
             Actor nåværende = kø.poll(); 
             if (besøkt.contains(nåværende)) {
@@ -102,7 +102,7 @@ public class Graf{
             if (kanter != null) {
                 for (Edge k : kanter) {
                     Actor nabo = k.getToActor();
-                    if (nabo == goal){ 
+                    if (nabo == start){ 
                         vei.put(nabo,nåværende);
                         return; 
                     }
