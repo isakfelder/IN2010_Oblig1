@@ -38,11 +38,11 @@ public class grafbygger {
 
         //System.out.println(g.adjGraf);
 
-        //System.out.println(g.getActorCount());
-        //System.out.println(g.getEdgeCount());
+        System.out.println(g.getActorCount());
+        System.out.println(g.getEdgeCount());
 
         Graf tester = new Graf(adjGraf, actors, movieMap);
-        //tester.komponenter();
+        tester.komponenter();
         System.out.println("starter på " + actors.get(1112).getName());
         System.out.println("slutter på " + actors.get(18000).getName());
         tester.BFS(actors.get(1112),actors.get(18000));
