@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.HashSet;
 
-public class grafbygger {
+public class Grafbygger1 {
     private Map<Actor, Set<Edge>> adjGraf;
   
     public static void main(String[] args) {
@@ -29,9 +29,11 @@ public class grafbygger {
         //String MoviesPath = "C:\\Users\\IsakF\\Documents\\VScode\\IN2010\\IN2010  gruppe\\IN2010_Oblig1\\Oblig3\\marvel_movies.tsv";
         File MoviesFil = new File(MoviesPath);
 
-        grafbygger g = new grafbygger(adjGraf);
+        Grafbygger1 g = new Grafbygger1(adjGraf);
 
-        ArrayList<Actor> actors = les_og_bygg_Actors(ActorsFil);
+
+        HashMap<String, Actor> hash_actors = new HashMap<>();
+        ArrayList<Actor> actors = les_og_bygg_Actors(ActorsFil, hash_actors );
         Map<String, Movie> movieMap = les_og_bygg_Movies(MoviesFil);
 
         g.byggGraf(actors, movieMap);
@@ -43,28 +45,27 @@ public class grafbygger {
 
         Graf tester = new Graf(adjGraf, actors, movieMap);
         //tester.komponenter();
-        System.out.println("starter på " + actors.get(2).getName());
-        System.out.println("slutter på " + actors.get(18000).getName());
-        //tester.BFS(actors.get(2),actors.get(18004 ));
-        tester.chill(actors.get(2),actors.get(18000 ));
+        System.out.println("starter på " + hash_actors.get("nm0637259").getName()); // Tuva Novotny
+        System.out.println("slutter på " + hash_actors.get("nm0931324").getName()); // Michael K. Williams
+        tester.BFS(hash_actors.get("nm0637259"),hash_actors.get("nm0931324" ));
+        /*Tuva Novotny
+        ===[ Dear Alice (5.5) ] ===> Danny Glover
+        ===[ LUV (5.9) ] ===> Michael K. Williams 
+        */
+
+        System.out.println("starter på " + hash_actors.get("nm0424060").getName()); // Scarlett Johansson
+        System.out.println("slutter på " + hash_actors.get("nm8076281").getName()); // Emma Mackey
+        tester.chill(hash_actors.get("nm0424060"),hash_actors.get("nm8076281" ));
+        /*Scarlett Johansson
+        ===[ Avengers: Infinity War (8.4) ] ===> Ariana Greenblatt
+        ===[ Barbie (7.1) ] ===> Emma Mackey
+        Total weight: 4.5
+        */
         
     }
 
-    public grafbygger(Map<Actor, Set<Edge>> adjGraf) {
+    public Grafbygger1(Map<Actor, Set<Edge>> adjGraf) {
         this.adjGraf = adjGraf;
-    }
-
-    public void addEdge(Actor actor1, Actor actor2, String movieId, float rating, String film_name) {
-        addActor(actor1);
-        addActor(actor2);
-
-        Edge edge = new Edge(actor1, actor2, movieId, rating, film_name);
-        adjGraf.get(actor1).add(edge);
-        adjGraf.get(actor2).add(edge);
-    }
-
-    public void addActor(Actor actor) {
-        adjGraf.putIfAbsent(actor, new HashSet<Edge>());
     }
 
     public void byggGraf(ArrayList<Actor> actors, Map<String, Movie> movieMap) {
@@ -97,17 +98,23 @@ public class grafbygger {
             
             for (int i = 0; i < skuespillere.size(); i++) {
                 for (int j = i + 1; j < skuespillere.size(); j++) {
+
                     Actor a1 = skuespillere.get(i);
                     Actor a2 = skuespillere.get(j);
 
-                    addEdge(a1, a2, filmId, rating, film_name);
+                    adjGraf.putIfAbsent(a1, new HashSet<Edge>());
+                    adjGraf.putIfAbsent(a2, new HashSet<Edge>());
+
+                    Edge edge = new Edge(a1, a2, filmId, rating, film_name);
+                    adjGraf.get(a1).add(edge);
+                    adjGraf.get(a2).add(edge);
                 }
             }
         }
         //return adjGraf;
     }
 
-    public static ArrayList<Actor> les_og_bygg_Actors(File fil) {
+    public static ArrayList<Actor> les_og_bygg_Actors(File fil, HashMap<String, Actor> hash_actors) {
         ArrayList<Actor> actors = new ArrayList<>();
 
         try (BufferedReader br = new BufferedReader(new FileReader(fil))) {
@@ -121,6 +128,8 @@ public class grafbygger {
                     ny.addMovie(deler[i]);
                 }
                 actors.add(ny);
+                hash_actors.put(deler[0], ny);
+
             }
         } catch (IOException e) {
             e.printStackTrace();
