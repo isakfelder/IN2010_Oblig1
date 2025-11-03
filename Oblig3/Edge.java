@@ -1,3 +1,5 @@
+// @isakfe / olavwa oblig3 in2010 h25
+
 public class Edge {
     private Actor  actor_1;
     private Actor actor_2;
@@ -14,9 +16,9 @@ public class Edge {
     }
 
     public Actor getToActor(Actor fra) {
-        if (fra == actor_1){return actor_2;}
-        else if(fra == actor_2){return actor_1;}
-        else{return null;}
+        if (fra == actor_1) {return actor_2;}
+        else if(fra == actor_2) {return actor_1;}
+        else {return null;}
     }
 
     public String getMovieId() {

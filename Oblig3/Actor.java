@@ -1,3 +1,5 @@
+// @isakfe / olavwa oblig3 in2010 h25
+
 import java.util.ArrayList;
 
 public class Actor { //denne er for actors

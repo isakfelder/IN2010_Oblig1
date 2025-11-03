@@ -1,3 +1,5 @@
+// @isakfe / olavwa oblig3 in2010 h25
+
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
@@ -13,55 +15,56 @@ public class Grafbygger1 {
     private Map<Actor, Set<Edge>> adjGraf;
   
     public static void main(String[] args) {
-        //System.out.println("Current working directory: " + System.getProperty("user.dir"));
-        //lager den tomme i main så den har tilgang til den siden den er static
         HashMap<Actor, Set<Edge>> adjGraf = new HashMap<>();
 
-        //av en eller annen merkelig grunn så er ikke working directoriet mitt i oblig 3, så da fungerer ikke filene her
-        
-        //String ActorsPath = "marvel_actors.tsv";
-        String ActorsPath = "actors.tsv";
-        //String ActorsPath = "C:\\Users\\IsakF\\Documents\\VScode\\IN2010\\IN2010  gruppe\\IN2010_Oblig1\\Oblig3\\marvel_actors.tsv";
+        String ActorsPath = args[0];
         File ActorsFil = new File(ActorsPath);
 
-        //String MoviesPath = "marvel_movies.tsv";
-        String MoviesPath = "movies.tsv";
-        //String MoviesPath = "C:\\Users\\IsakF\\Documents\\VScode\\IN2010\\IN2010  gruppe\\IN2010_Oblig1\\Oblig3\\marvel_movies.tsv";
+        String MoviesPath = args[1];
         File MoviesFil = new File(MoviesPath);
 
         Grafbygger1 g = new Grafbygger1(adjGraf);
-
 
         HashMap<String, Actor> hash_actors = new HashMap<>();
         ArrayList<Actor> actors = les_og_bygg_Actors(ActorsFil, hash_actors );
         Map<String, Movie> movieMap = les_og_bygg_Movies(MoviesFil);
 
+        HashMap<String, String> oppgaveActors = new HashMap<>();
+        oppgaveActors.put("nm2255973", "nm0000460");
+        oppgaveActors.put("nm0424060", "nm8076281");
+        oppgaveActors.put("nm4689420", "nm0000365");
+        oppgaveActors.put("nm0000288", "nm2143282");
+        oppgaveActors.put("nm0637259", "nm0931324");
+
         g.byggGraf(actors, movieMap);
-
-        //System.out.println(g.adjGraf);
-
-        //System.out.println(g.getActorCount());
-        //System.out.println(g.getEdgeCount());
-
         Graf tester = new Graf(adjGraf, actors, movieMap);
-        //tester.komponenter();
-        System.out.println("starter på " + hash_actors.get("nm0637259").getName()); // Tuva Novotny
-        System.out.println("slutter på " + hash_actors.get("nm0931324").getName()); // Michael K. Williams
-        tester.BFS(hash_actors.get("nm0637259"),hash_actors.get("nm0931324" ));
-        /*Tuva Novotny
-        ===[ Dear Alice (5.5) ] ===> Danny Glover
-        ===[ LUV (5.9) ] ===> Michael K. Williams 
-        */
 
-        System.out.println("starter på " + hash_actors.get("nm0424060").getName()); // Scarlett Johansson
-        System.out.println("slutter på " + hash_actors.get("nm8076281").getName()); // Emma Mackey
-        tester.chill(hash_actors.get("nm0424060"),hash_actors.get("nm8076281" ));
-        /*Scarlett Johansson
-        ===[ Avengers: Infinity War (8.4) ] ===> Ariana Greenblatt
-        ===[ Barbie (7.1) ] ===> Emma Mackey
-        Total weight: 4.5
-        */
-        
+        //noder og kanter telling
+        System.out.println("Noder og kanter: ");
+        System.out.println(g.getActorCount());
+        System.out.println(g.getEdgeCount());
+
+        //kompontenter
+        System.out.println("\nKomponenter: ");
+        tester.komponenter();
+
+        //korteste vei
+        System.out.println("\nKorteste vei: ");
+        for (Map.Entry<String, String> entry : oppgaveActors.entrySet()) {
+            Actor aStart = hash_actors.get(entry.getKey());
+            Actor aEnd = hash_actors.get(entry.getValue());
+            tester.BFS(aStart, aEnd);
+            System.out.println();
+        }
+
+        //chilleste vei
+        System.out.println("\nChilleste vei: ");
+        for (Map.Entry<String, String> entry : oppgaveActors.entrySet()) {
+            Actor aStart = hash_actors.get(entry.getKey());
+            Actor aEnd = hash_actors.get(entry.getValue());
+            tester.chill(aStart, aEnd);
+            System.out.println();
+        }
     }
 
     public Grafbygger1(Map<Actor, Set<Edge>> adjGraf) {

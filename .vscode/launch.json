@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Grafbygger1",
+            "request": "launch",
+            "mainClass": "Grafbygger1",
+            "projectName": "IN2010_Oblig1_e081fe20"
+        },
+        {
+            "type": "java",
             "name": "Current File",
             "request": "launch",
             "mainClass": "${file}"

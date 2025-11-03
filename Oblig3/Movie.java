@@ -1,3 +1,5 @@
+// @isakfe / olavwa oblig3 in2010 h25
+
 public class Movie {
     private String id;
     private String name;

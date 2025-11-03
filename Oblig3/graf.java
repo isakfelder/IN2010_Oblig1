@@ -1,21 +1,18 @@
+// @isakfe / olavwa oblig3 in2010 h25
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.PriorityQueue;
-import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 import java.util.TreeMap;
-
-import org.w3c.dom.Node;
-
 import java.util.HashSet;
 import java.util.Stack;
 import java.util.Queue;
 import java.util.LinkedList;
 
-// ikke noe som fungerer mere tanker og litt oppsett (stackoverflow) noe som feiler og den looper tror jeg.
 public class Graf{
     HashMap<Actor, Set<Edge>> graf;
     ArrayList<Actor> actor;
