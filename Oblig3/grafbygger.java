@@ -20,13 +20,13 @@ public class grafbygger {
         //av en eller annen merkelig grunn så er ikke working directoriet mitt i oblig 3, så da fungerer ikke filene her
         
         //String ActorsPath = "marvel_actors.tsv";
-        String ActorsPath = "actors.tsv";
-        //String ActorsPath = "C:\\Users\\IsakF\\Documents\\VScode\\IN2010\\IN2010  gruppe\\IN2010_Oblig1\\Oblig3\\marvel_actors.tsv";
+        //String ActorsPath = "actors.tsv";
+        String ActorsPath = "C:\\Users\\IsakF\\Documents\\VScode\\IN2010\\IN2010  gruppe\\IN2010_Oblig1\\Oblig3\\actors.tsv";
         File ActorsFil = new File(ActorsPath);
 
         //String MoviesPath = "marvel_movies.tsv";
-        String MoviesPath = "movies.tsv";
-        //String MoviesPath = "C:\\Users\\IsakF\\Documents\\VScode\\IN2010\\IN2010  gruppe\\IN2010_Oblig1\\Oblig3\\marvel_movies.tsv";
+        //String MoviesPath = "movies.tsv";
+        String MoviesPath = "C:\\Users\\IsakF\\Documents\\VScode\\IN2010\\IN2010  gruppe\\IN2010_Oblig1\\Oblig3\\movies.tsv";
         File MoviesFil = new File(MoviesPath);
 
         grafbygger g = new grafbygger(adjGraf);
@@ -43,9 +43,9 @@ public class grafbygger {
 
         Graf tester = new Graf(adjGraf, actors, movieMap);
         //tester.komponenter();
-        System.out.println("starter på " + actors.get(1112).getName());
-        System.out.println("slutter på " + actors.get(18000).getName());
-        tester.BFS(actors.get(1112),actors.get(18000));
+        System.out.println("starter på " + actors.get(2).getName());
+        System.out.println("slutter på " + actors.get(18005).getName());
+        tester.BFS(actors.get(2),actors.get(18005));
         
     }
 
